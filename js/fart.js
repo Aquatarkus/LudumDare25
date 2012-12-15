@@ -27,12 +27,20 @@
 	Fart.prototype.fartlings = [];
 	Fart.prototype.decay = 4000;
 	
-	Fart.prototype.tileX = function() {
+	Fart.prototype.getTileX = function() {
 		return Math.round(this.x / 24);
 	};
 	
-	Fart.prototype.tileY = function() {
+	Fart.prototype.getTileY = function() {
 		return Math.round(this.y / 24);
+	};
+	
+	Fart.prototype.setTileX = function(tileX) {
+		this.x = tileX * 24;
+	};
+	
+	Fart.prototype.setTileY = function(tileY) {
+		this.y = tileY * 24;
 	};
 	
 	Fart.prototype.makeShape = function() {

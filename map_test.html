@@ -112,8 +112,8 @@
 			
 			var bigOldFart = new game.Fart();
 			bigOldFart.vX = 50;
-			bigOldFart.x = 0;
-			bigOldFart.y = 400;
+			bigOldFart.setTileX(0);
+			bigOldFart.setTileY(4);
 			
 			addEntity(bigOldFart);
 		}
@@ -139,8 +139,6 @@
 		
 		//start game timer
 		createjs.Ticker.addListener(gameController);
-		
-		gameController.stage.update();
 	}
 </script>
 </body>
