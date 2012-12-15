@@ -25,10 +25,8 @@
 	Fart.prototype.spawnRate = 200;
 	Fart.prototype.lastSpawned = 0;
 	Fart.prototype.fartlings = [];
-	Fart.prototype.stage = null;
+	Fart.prototype.controller = null;
 	Fart.prototype.decay = 4000;
-	
-	Fart.prototype.isLive = true;
 	
 	Fart.prototype.makeShape = function() {
 		var g = this.shape.graphics;
@@ -41,9 +39,6 @@
 	
 	
 	Fart.prototype.tick = function() {
-		if (!this.isLive) {
-			return;
-		}
 		
 		var interval = createjs.Ticker.getInterval();
 		var prevX = this.x;
@@ -69,20 +64,21 @@
 				this.lastSpawned = ticks;
 				
 				var newFartling = new game.Fart();
+				newFartling.controller = this.controller;
 				newFartling.stationary = true;
 				newFartling.alpha = 0.5;
 				newFartling.x = prevX;
 				newFartling.y = prevY;
 				
 				// Fart gotta keep moving
-				this.stage.addChild(newFartling);
+				this.controller.stage.addChild(newFartling);
 			}
 		} else {
 			var newAlpha = this.alpha - (interval / this.decay);
 			
 			if (newAlpha <= 0) {
 				this.alpha = 0;
-				this.isLive = false;
+				this.controller.objectsToDelete.push(this);
 			} else {
 				this.alpha = newAlpha;
 			}

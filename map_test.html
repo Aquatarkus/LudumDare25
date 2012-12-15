@@ -41,7 +41,8 @@
 			],
 		canvas: null,
 		stage: null,
-		objects: []
+		objects: [],
+		objectsToDelete: []
 	};
 	
 	gameController.init = function() {
@@ -104,7 +105,7 @@
 			}
 			
 			var bigOldFart = new game.Fart();
-			bigOldFart.stage = this.stage;
+			bigOldFart.controller = this;
 			bigOldFart.vX = 50;
 			bigOldFart.x = 0;
 			bigOldFart.y = 400;
@@ -120,6 +121,12 @@
 			}
 		}
 		this.stage.update();
+		
+		for(var i = this.objectsToDelete.length - 1; i >= 0; i--) {
+			this.stage.removeChild(this.objectsToDelete[i]);
+		}
+		
+		this.objectsToDelete = [];
 	};
 	
 	function init() {
