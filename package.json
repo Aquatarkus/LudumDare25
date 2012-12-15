@@ -1,0 +1,26 @@
+{
+  "name": "SilentButDeatly",
+  "version": "0.0.0",
+  "description": "A tactical fart assassin game",
+  "main": "server/main.js",
+  "scripts": {
+    "test": "echo '8=====================D'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aquatarkus/LudumDare25.git"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "keywords": [
+    "tactical",
+    "fart",
+    "assassin",
+    "game",
+    "ballsinjonsmouth"
+  ],
+  "author": "Autopsy Turvy",
+  "license": "Artistic"
+}
