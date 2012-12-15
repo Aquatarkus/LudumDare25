@@ -25,7 +25,6 @@
 	Fart.prototype.spawnRate = 200;
 	Fart.prototype.lastSpawned = 0;
 	Fart.prototype.fartlings = [];
-	Fart.prototype.controller = null;
 	Fart.prototype.decay = 4000;
 	
 	Fart.prototype.makeShape = function() {
@@ -64,21 +63,20 @@
 				this.lastSpawned = ticks;
 				
 				var newFartling = new game.Fart();
-				newFartling.controller = this.controller;
 				newFartling.stationary = true;
 				newFartling.alpha = 0.5;
 				newFartling.x = prevX;
 				newFartling.y = prevY;
 				
 				// Fart gotta keep moving
-				this.controller.stage.addChild(newFartling);
+				addEntity(newFartling);
 			}
 		} else {
 			var newAlpha = this.alpha - (interval / this.decay);
 			
 			if (newAlpha <= 0) {
 				this.alpha = 0;
-				this.controller.objectsToDelete.push(this);
+				removeEntity(this);
 			} else {
 				this.alpha = newAlpha;
 			}

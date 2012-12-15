@@ -45,6 +45,14 @@
 		objectsToDelete: []
 	};
 	
+	function addEntity(newEntity) {
+		gameController.stage.addChild(newEntity);
+	};
+	
+	function removeEntity(newEntity) {
+		gameController.objectsToDelete.push(newEntity);
+	};
+	
 	gameController.init = function() {
 		this.canvas = document.getElementById("gameCanvas")
 		this.stage = new createjs.Stage(this.canvas);
@@ -98,19 +106,16 @@
 					newObj.x = j * 32;
 					newObj.y = i * 32;
 				
-					this.objects.push(newObj);
-					
-					this.stage.addChild(newObj);
+					addEntity(newObj);
 				}
 			}
 			
 			var bigOldFart = new game.Fart();
-			bigOldFart.controller = this;
 			bigOldFart.vX = 50;
 			bigOldFart.x = 0;
 			bigOldFart.y = 400;
 			
-			this.stage.addChild(bigOldFart);
+			addEntity(bigOldFart);
 		}
 	};
 	
