@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Super Church Fart 64</title>
+<style type="text/css">
+    #gameDiv
+    {
+        user-select: none;
+        background-color:#000000;
+        width: 800px;
+        height: 600px;
+    }
+</style>
+</head>
+<body onload="init()">
+<h1>Super Church Fart 64</h1>
+<h2>Ludum Dare 25</h2>
+<div id="gameDiv">
+    <canvas id="gameCanvas"
+            width="640"
+            height="480"></canvas>
+</div>
+<script src="js/easeljs-0.5.0.min.js" type="text/javascript"></script>
+<script src="js/Globals.js"></script>
+<script src=js/Entity.js></script>
+<script src="js/map.js"></script>
+<script>
+    var gameController =
+    {
+        canvas: null,
+        stage: null,
+        objects: []
+    };
+
+    gameController.init = function()
+    {
+        this.canvas = document.getElementById("gameCanvas");
+        this.stage = new createjs.Stage(this.canvas);
+        var rowsLevel1 = [
+            "##########################",
+            "#           Tp          L#",
+            "#R                      U#",
+            "#   [PPPPPPPFFPPPPPPP]   #",
+            "#      b        g       F#",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#        D        M      #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#U          X            #",
+            "#U          X            #",
+            "############{}############"
+        ];
+
+        this.mapLevel1 = new Map("Level 1", this.stage, rowsLevel1);
+        this.mapLevel1.printRows();
+        this.mapLevel1.printEntities();
+    };
+
+    gameController.tick = function()
+    {
+        this.stage.update();
+    };
+
+    function init()
+    {
+        gameController.init();
+
+        //start game timer
+        createjs.Ticker.addListener(gameController);
+
+        gameController.stage.update();
+    };
+</script>
+</body>
+</html>
