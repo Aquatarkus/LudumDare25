@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+<title>LD25</title>
+
+</head>
+
+<body>
+
+	<canvas id="gameCanvas" width="800px" height="600px" style="border: 1px solid red;" />
+
+</body>
+
+<script type="text/javascript">
+/**
+ * Provides requestAnimationFrame in a cross browser way.
+ * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+ */
+
+if ( !window.requestAnimationFrame ) {
+
+    window.requestAnimationFrame = ( function() {
+
+        return window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element ) {
+
+            window.setTimeout( callback, 1000 / 60 );
+
+        };
+
+    } )();
+
+}
+</script>
+
+<script type="text/javascript">
+var game = game || { };
+
+game.canvas = document.getElementById("gameCanvas");
+game.canvasContext = game.canvas.getContext("2d");
+
+game.player = {
+
+	// fields
+	isMoving: false,
+	facing: 'down',
+	position: { x: 0, y: 0 },
+	targetPosition: { x: 0, y: 0 },
+	moveStartTime: null,
+	moveTime: 150.0,
+	width: 30.0,
+	height: 30.0,
+
+	// methods
+	handleKeyDown: function(evt) {
+		var delta = { x: 0, y: 0 };
+
+		switch (evt.keyCode) {
+			case 38: // up
+			case 87: // w
+				// TODO: switch to tile dimensions
+				delta.y = -game.player.height;
+				break;
+
+			case 37: // left
+			case 65: // a
+				// TODO: switch to tile dimensions
+				delta.x = -game.player.width;
+				break;
+
+			case 40: // down
+			case 83: // s
+				// TODO: switch to tile dimensions
+				delta.y = game.player.height;
+				break;
+
+			case 39: // right
+			case 68: // d
+				// TODO: switch to tile dimensions
+				delta.x = game.player.width;
+				break;
+		}
+
+		// if a move action, start moving/ countup
+		if (delta.x != delta.y) {
+			// can't start new move while in motion
+			if (game.player.isMoving)
+				return;
+
+			evt.preventDefault();
+			game.player.isMoving = true;
+			game.player.targetPosition = {
+				x: game.player.position.x + delta.x,
+				y: game.player.position.y + delta.y
+			};
+			game.player.moveStartTime = new Date();
+		}
+	},
+
+	// todo: responsibility of player object to draw itself?
+	draw: function() {
+		if (game.player.isMoving) {
+			// draw in "lerped" position
+			var step = (new Date() - game.player.moveStartTime) / game.player.moveTime;
+			game.canvasContext.fillRect(
+				util.lerp(game.player.position.x, game.player.targetPosition.x, step),
+				util.lerp(game.player.position.y, game.player.targetPosition.y, step),
+				game.player.width,
+				game.player.height
+			)
+
+			// when destination is reached, set new position
+			if (step >= 1.0) {
+				// HACK: json objects with same props, but may be slow
+				game.player.position = game.player.targetPosition;
+				game.player.isMoving = false;
+			}
+		} else {
+			// draw in position
+			game.canvasContext.fillRect(
+				game.player.position.x,
+				game.player.position.y,
+				game.player.width,
+				game.player.height
+			);
+		}
+	}
+};
+
+function util() { };
+util.lerp = function(start, end, amount) {
+	var amt = util.clamp(amount, 0.0, 1.0);
+	return ((end - start) *  amt) + start;
+};
+util.clamp = function(val, min, max) {
+	return Math.max(min, Math.min(max, val));
+};
+
+function draw() {
+	game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
+
+	game.player.draw();
+
+	window.requestAnimationFrame(draw);
+}
+
+draw();
+
+window.addEventListener(
+	"keydown",
+	game.player.handleKeyDown,
+	true);
+</script>
+
+</html>
