@@ -27,6 +27,14 @@
 	Fart.prototype.fartlings = [];
 	Fart.prototype.decay = 4000;
 	
+	Fart.prototype.tileX = function() {
+		return Math.round(this.x / 24);
+	};
+	
+	Fart.prototype.tileY = function() {
+		return Math.round(this.y / 24);
+	};
+	
 	Fart.prototype.makeShape = function() {
 		var g = this.shape.graphics;
 
