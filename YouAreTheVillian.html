@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>You Are The Villain | LD25</title>
+    <style>body</style>
 </head>
 <body>
 <h1>You Are The Villain</h1>
 <h2>Ludum Dare 25</h2>
+
+<div id="gameDiv"></div>
+<script src="three.js/build/three.js"></script>
+<script>
+console.log("You Are The Villain");
+console.log("Ludum Dare 25");
+var renderer = new THREE.WebGLRenderer({'antialias':true});
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera();
+renderer.setSize(640, 480);
+var gameDiv = document.getElementById("gameDiv");
+gameDiv.appendChild(renderer.domElement);
+renderer.setClearColor(0x7f3f3f);
+function animate(time)
+{
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+
+}
+requestAnimationFrame(animate);
+</script>
 </body>
 </html>
