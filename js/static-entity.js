@@ -13,6 +13,7 @@
 		this.Container_initialize();
 		
 		this.shape = new createjs.Shape();
+		this.makeShape();
 		
 		this.addChild(this.shape);
 	};
@@ -23,7 +24,6 @@
 		g.clear();
 		
 		g.beginStroke("#F00").beginFill("#00F").drawRect(0, 0, 32, 32);
-		g.endFill().endStroke();
 	};
 
 	game.StaticEntity = StaticEntity;
