@@ -2,39 +2,14 @@
 <html>
 <head>
 <title>LD25</title>
-
+<script src="js/easeljs-0.5.0.min.js" type="text/javascript"></script>
 </head>
 
 <body>
 
-	<canvas id="gameCanvas" width="800px" height="600px" style="border: 1px solid red;" />
+	<canvas id="gameCanvas" width="800px" height="600px" style="border: 1px solid red;"></canvas>
 
 </body>
-
-<script type="text/javascript">
-/**
- * Provides requestAnimationFrame in a cross browser way.
- * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
- */
-
-if ( !window.requestAnimationFrame ) {
-
-    window.requestAnimationFrame = ( function() {
-
-        return window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function( /* function FrameRequestCallback */ callback, /* DOMElement Element */ element ) {
-
-            window.setTimeout( callback, 1000 / 60 );
-
-        };
-
-    } )();
-
-}
-</script>
 
 <script type="text/javascript">
 var game = game || { };
@@ -42,44 +17,135 @@ var game = game || { };
 game.canvas = document.getElementById("gameCanvas");
 game.canvasContext = game.canvas.getContext("2d");
 
+game.loadedSprites = [];
+game.getSprite = function(filename) {
+	// load from cache if available
+	for (var i in game.loadedSprites)
+		if (game.loadedSprites[i].filename == filename)
+			return game.loadedSprites[i].sprite;
+
+	var sprite = new createjs.SpriteSheet({
+		images: [ "images/" + filename ],
+		frames: { width: 24, height: 32, count: 12, regX: 12, regY: 32 },
+		animations: {
+			idleNorth: 1,
+			idleWest: 10,
+			idleSouth: 7,
+			idleEast:  4,
+
+			walkNorth: { frames: [ 0,  1,  2,  1 ], frequency: 7 },
+			walkWest:  { frames: [ 9, 10, 11, 10 ], frequency: 7 },
+			walkSouth: { frames: [ 6,  7,  8,  7 ], frequency: 7 },
+			walkEast:  { frames: [ 3,  4,  5,  4 ], frequency: 7 },
+		}
+	});
+
+	game.loadedSprites.push({ filename: filename, sprite: sprite });
+
+	return sprite;
+};
+
+game.keyState = {
+	isUpHeld: false,
+	isLeftHeld: false,
+	isDownHeld: false,
+	isRightHeld: false
+}
+
+var sprite = game.getSprite("BH_Usher.png");
+var spriteAnim = new createjs.BitmapAnimation(sprite);
+spriteAnim.x = 48;
+spriteAnim.y = 48;
+spriteAnim.gotoAndPlay("idleNorth");
+
+var stage = new createjs.Stage(game.canvas);
+createjs.Ticker.setFPS(60);
+createjs.Ticker.addListener(window);
+
+stage.addChild(spriteAnim);
+
+function tick() {
+	if (game.player.isMoving) {
+		// draw in lerped position
+		var step = (new Date() - game.player.moveStartTime) / game.player.moveTime;
+		spriteAnim.x = util.lerp(game.player.position.x, game.player.targetPosition.x, step);
+		spriteAnim.y = util.lerp(game.player.position.y, game.player.targetPosition.y, step);
+
+		// when destination is reached, set new position
+		if (step >= 1.0) {
+			game.player.position = game.player.targetPosition;
+			game.player.isMoving = false;
+			// HACK: don't interrupt anim cycle if a button is held
+			if (!game.keyState.isUpHeld &&
+				!game.keyState.isLeftHeld &&
+				!game.keyState.isDownHeld &&
+				!game.keyState.isRightHeld)
+				spriteAnim.gotoAndPlay(game.player.nextIdleAnim);
+		}
+	}
+
+	stage.update();
+}
+
 game.player = {
 
 	// fields
 	isMoving: false,
-	facing: 'down',
-	position: { x: 0, y: 0 },
+	facing: "south",
+	nextIdleAnim: "idleSouth",
+	position: { x: 48, y: 48 },
 	targetPosition: { x: 0, y: 0 },
 	moveStartTime: null,
-	moveTime: 150.0,
-	width: 30.0,
-	height: 30.0,
+	moveTime: 500.0,
+	width: 24.0,
+	height: 24.0,
 
 	// methods
 	handleKeyDown: function(evt) {
+		evt.preventDefault();
+
+		if (game.player.isMoving)
+			return;
 		var delta = { x: 0, y: 0 };
 
 		switch (evt.keyCode) {
 			case 38: // up
 			case 87: // w
-				// TODO: switch to tile dimensions
+				if (!game.keyState.isUpHeld) {
+					game.keyState.isUpHeld = true;
+					spriteAnim.gotoAndPlay("walkNorth");
+				}
+				game.player.nextIdleAnim = "idleNorth";
 				delta.y = -game.player.height;
 				break;
 
 			case 37: // left
 			case 65: // a
-				// TODO: switch to tile dimensions
+				if (!game.keyState.isLeftHeld) {
+					game.keyState.isLeftHeld = true;
+					spriteAnim.gotoAndPlay("walkWest");
+				}
+				game.player.nextIdleAnim = "idleWest";
 				delta.x = -game.player.width;
 				break;
 
 			case 40: // down
 			case 83: // s
-				// TODO: switch to tile dimensions
+				if (!game.keyState.isDownHeld) {
+					game.keyState.isDownHeld = true;
+					spriteAnim.gotoAndPlay("walkSouth");
+				}
+				game.player.nextIdleAnim = "idleSouth";
 				delta.y = game.player.height;
 				break;
 
 			case 39: // right
 			case 68: // d
-				// TODO: switch to tile dimensions
+				if (!game.keyState.isRightHeld) {
+					game.keyState.isRightHeld = true;
+					spriteAnim.gotoAndPlay("walkEast");
+				}
+				game.player.nextIdleAnim = "idleEast";
 				delta.x = game.player.width;
 				break;
 		}
@@ -90,7 +156,6 @@ game.player = {
 			if (game.player.isMoving)
 				return;
 
-			evt.preventDefault();
 			game.player.isMoving = true;
 			game.player.targetPosition = {
 				x: game.player.position.x + delta.x,
@@ -100,34 +165,29 @@ game.player = {
 		}
 	},
 
-	// todo: responsibility of player object to draw itself?
-	draw: function() {
-		if (game.player.isMoving) {
-			// draw in "lerped" position
-			var step = (new Date() - game.player.moveStartTime) / game.player.moveTime;
-			game.canvasContext.fillRect(
-				util.lerp(game.player.position.x, game.player.targetPosition.x, step),
-				util.lerp(game.player.position.y, game.player.targetPosition.y, step),
-				game.player.width,
-				game.player.height
-			)
+	handleKeyUp: function(evt) {
+		switch (evt.keyCode) {
+			case 38: // up
+			case 87: // w
+				game.keyState.isUpHeld = false;
+				break;
 
-			// when destination is reached, set new position
-			if (step >= 1.0) {
-				// HACK: json objects with same props, but may be slow
-				game.player.position = game.player.targetPosition;
-				game.player.isMoving = false;
-			}
-		} else {
-			// draw in position
-			game.canvasContext.fillRect(
-				game.player.position.x,
-				game.player.position.y,
-				game.player.width,
-				game.player.height
-			);
+			case 37: // left
+			case 65: // a
+				game.keyState.isLeftHeld = false;
+				break;
+
+			case 40: // down
+			case 83: // s
+				game.keyState.isDownHeld = false;
+				break;
+
+			case 39: // right
+			case 68: // d
+				game.keyState.isRightHeld = false;
+				break;
 		}
-	}
+	},
 };
 
 function util() { };
@@ -139,19 +199,13 @@ util.clamp = function(val, min, max) {
 	return Math.max(min, Math.min(max, val));
 };
 
-function draw() {
-	game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
-
-	game.player.draw();
-
-	window.requestAnimationFrame(draw);
-}
-
-draw();
-
 window.addEventListener(
 	"keydown",
 	game.player.handleKeyDown,
+	true);
+window.addEventListener(
+	"keyup",
+	game.player.handleKeyUp,
 	true);
 </script>
 
