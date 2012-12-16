@@ -45,6 +45,18 @@ Map.prototype.addEntity = function(entity)
     }
 };
 
+Map.prototype.getEntityList = function(tileX, tileY) {
+    var result = null;
+    
+    if (this.entities[tileX]) {
+        if (this.entities[tileX][tileY]) {
+            result = this.entities[tileX][tileY];
+        }
+    }
+    
+    return result;
+};
+
 Map.prototype.parseRows = function()
 {
     this.entities = [];

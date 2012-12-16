@@ -28,6 +28,7 @@
 <script src="js/Globals.js" type="text/javascript"></script>
 <script src="js/Levels.js"></script>
 <script src="js/Entity.js" type="text/javascript"></script>
+<script src="js/CollidableEntity.js" type="text/javascript"></script>
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
 <script>
@@ -57,6 +58,10 @@
         this.objectsToDelete = [];
     };
     
+    function getEntityList(newTileX, newTileY) {
+        return gameController.currentMap.getEntityList(newTileX, newTileY);
+    };
+    
 	function addEntity(newEntity) {
 		gameController.currentMap.addEntity(newEntity);
 	};
@@ -65,6 +70,11 @@
     {
 		gameController.objectsToDelete.push(newEntity);
 	};
+    
+    function removeEntityFromMap(newEntity)
+    {
+        gameController.currentMap.removeEntity(newEntity);
+    };
 
     function onLevelSelectChanged(select)
     {
@@ -110,7 +120,7 @@
         var bigOldFart = new Fart();
         bigOldFart.vX = 50;
         bigOldFart.vY = 25;
-        bigOldFart.setTileX(0);
+        bigOldFart.setTileX(2);
         bigOldFart.setTileY(4);
         
         addEntity(bigOldFart);
