@@ -98,13 +98,13 @@ Map.prototype.entityForCharacter = function(character, x, y)
             entity = null;
             break;
         case "P":
-            // floor
+            // pew
             entity = new Pew(x, y, Direction.Down);
             break;
         case "[":
-        // left pew end
-        entity = new PewEnd(x, y, Direction.Left);
-        break;
+            // left pew end
+            entity = new PewEnd(x, y, Direction.Left);
+            break;
         case "]":
             // right pew end
             entity = new PewEnd(x, y, Direction.Right);
@@ -130,7 +130,7 @@ Map.prototype.entityForCharacter = function(character, x, y)
             entity = new Singer(x, y, Direction.Down);
             break;
         case "T":
-            // candle
+            // Table
             entity = new Table(x, y);
             break;
         default:

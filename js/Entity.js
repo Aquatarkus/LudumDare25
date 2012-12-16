@@ -135,6 +135,8 @@ var Table = function(x, y)
     Obstacle.call(this, x, y);
     this.name = "Singer";
     this.setColor("yellow", "brown");
+    var tableBitmap = new createjs.Bitmap("images/light_table.png");
+    this.addChild(tableBitmap);
 }
 Table.prototype = new Obstacle();
 Table.prototype.constructor = Table;
