@@ -145,14 +145,6 @@
     function init()
     {
         gameController.init();
-        
-        var bigOldFart = new Fart();
-        bigOldFart.vX = 0;
-        bigOldFart.vY = 0;
-        bigOldFart.setTileX(2);
-        bigOldFart.setTileY(4);
-        
-        addEntity(bigOldFart);
 
         // start game timer
         createjs.Ticker.addListener(gameController);
