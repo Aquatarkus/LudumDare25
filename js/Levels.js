@@ -11,12 +11,13 @@
 // g - grandpa
 // S - singer
 
-var Baptism = [
+var Baptism = {
+    map :[
 "########################",
-"#>          v          #",
+"#>        + v          #",
+"#        B  b G        #",
 "#                      #",
 "#   SSSSSS    SSSSSS   #",
-"#   SSSSSS ++ SSSSSS   #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
@@ -29,10 +30,13 @@ var Baptism = [
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#^         V>          #",
-"###########{}###########"
-];
+"###########{}###########"],
 
-var Wedding = [
+    description : "Fart on the baby before the sin is washed away!"
+};
+
+var Wedding = {
+    map : [
 "########################",
 "#          TT          #",
 "#                      #",
@@ -50,10 +54,12 @@ var Wedding = [
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#          V           #",
-"###########{}###########"
-];
+"###########{}###########"],
+    description : "Fart on the bride and the groom to taint the marriage!"
+};
 
-var Funeral = [
+var Funeral = {
+    map : [
 "########################",
 "#                      #",
 "#                      #",
@@ -71,10 +77,12 @@ var Funeral = [
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
 "#          V           #",
-"###########{}###########"
-];
+"###########{}###########"],
+    description : "Fart in the casket to ruin his afterlife!"
+};
 
-var PapalConclave = [
+var PapalConclave = {
+    map : [
 "########################",
 "#c       c TT c       c#",
 "#          TT          #",
@@ -92,10 +100,12 @@ var PapalConclave = [
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#c         V          c#",
-"###########{}###########"
-];
+"###########{}###########"],
+    description : "Fart on the Cardinals!"
+};
 
-var FartOnJesus = [
+var FartOnJesus = {
+    map : [
 "########################",
 "#c         J          c#",
 "#                      #",
@@ -113,8 +123,9 @@ var FartOnJesus = [
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#c         V          c#",
-"###########{}###########"
-];
+"###########{}###########"],
+    description : "Fart on Jesus!"
+};
 
 var Levels =
 {
