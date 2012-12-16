@@ -244,7 +244,7 @@ Player.prototype.handleCollisions = function(entityList) {
     var result = true;
 
     for (var i = 0; i < entityList.length; i++) {
-        if (entityList[i].collides) {
+        if (entityList[i].collides && !(entityList[i] instanceof Fart)) {
             result = false;
             break;
         }
