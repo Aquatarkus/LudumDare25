@@ -33,6 +33,10 @@
 	
 	
 	Fart.prototype.tick = function() {
+    
+        if (!this.stationary) {
+            this.checkDistanceEntities();
+        }
 		
 		var interval = createjs.Ticker.getInterval();
 		var prevX = this.x;
@@ -104,3 +108,61 @@
         
         return result;
     };
+    
+    Fart.prototype.checkDistanceEntities = function() {
+        var entities = getDistanceEntities();
+        
+        var closestDE = null;
+        var closestDist = 9999;
+        
+        var tileX = this.getTileX();
+        var tileY = this.getTileY();
+        
+        for(var i = 0; i < entities.length; i++) {
+            var entity = entities[i];
+            var found = false;
+            var dist = 9999;
+            
+            var entityTileX = entity.getTileX();
+            var entityTileY = entity.getTileY();
+            
+            switch(entity.direction) {
+                case Direction.Up:
+                    if (tileX == entityTileX && tileY <= entityTileY) {
+                        found = true;
+                        dist = entityTileY - tileY;
+                    }
+                    break;
+                case Direction.Down:
+                    if (tileX == entityTileX && tileY >= entityTileY) {
+                        found = true;
+                        dist = tileY - entityTileY;
+                    }
+                    break;
+                case Direction.Left:
+                    if (tileY == entityTileY && tileX <= entityTileX) {
+                        found = true;
+                        dist = entityTileX - tileX;
+                    }
+                    break;
+                case Direction.Right:
+                    if (tileY == entityTileY && tileX >= entityTileX) {
+                        found = true;
+                        dist = tileX - entityTileX;
+                    }
+                    break;
+            }
+            
+            if (found && closestDist > dist) {
+                closestDist = dist;
+                closestDE = entity;
+            }
+        }
+        
+        if (closestDE) {
+            closestDE.affect(this);
+        }
+    };
+    
+    
+    

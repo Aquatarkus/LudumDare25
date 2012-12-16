@@ -10,9 +10,7 @@ var Mass = [
 "#c       c TT c       c#",
 "#          TT          #",
 "#          +           #",
-"#                      #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#>                    v#",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
@@ -22,6 +20,8 @@ var Mass = [
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#^                    <#",
 "#c                    c#",
 "###########{}###########"
 ];
