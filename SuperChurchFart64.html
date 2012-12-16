@@ -2,30 +2,50 @@
 <head>
 <title>Super Church Fart 64</title>
 <style type="text/css">
+    #titleScreen h1 {
+      font-variant: small-caps;
+      letter-spacing: 5px;
+      margin-top: 20%;
+    }
     #gameDiv
     {
         user-select: none;
         background-color:#7f7f7f;
         width: 768px;
         height: 576px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 110px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      text-align: center;
+      color: #FFFFFF;
+      width: 960px;
+      margin-left: auto;
+      margin-right: auto;
     }
 </style>
 </head>
-<body onload="init()">
-<h1>Super Church Fart 64</h1>
-<h2>Ludum Dare 25</h2>
-<h3 id="descriptionHeader"></h3>
-<div id="gameDiv">
+<!--Where text is played for intros/transitions, etc. -->
+<div id="titleScreen">
+  <h1>The Cropduster</h1>
+  <h2>A tactical fart assassination game</h2>
+  <p>Press any key to begin</p>
+</div>
+<!--The main game div.-->
+<div id="gameDiv" style="display: none;">
     <canvas id="gameCanvas"
             width="768"
             height="576"></canvas>
 </div>
-<form>
+<form id="levelSelectForm" style="display: none; margin-top: 10px;">
     <select id="levelSelect" onchange="onLevelSelectChanged(this)">
     </select>
 </form>
-<div id="soundDiv">
-    <audio id="musicSound" controls preload="auto" autobuffer autoplay="autoplay" loop>
+<div id="soundDiv" style="display: none; margin-top: 10px">
+    <audio id="musicSound" controls preload="auto" autobuffer loop>
         <source src="sounds/Just_Fartin'_Around.mp3" />
         <source src="sounds/Just_Fartin'_Around.ogg" />
     </audio>
@@ -49,138 +69,9 @@
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Fan.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
+<script src="js/GameController.js" type="text/javascript"></script>
 <script>
-    // add levels to the level selector
-    var levelSelect = document.getElementById("levelSelect");
-
-    var descriptionHeader = document.getElementById("descriptionHeader");
-    var fartSound = document.getElementById("fartSound");
-    for (var i in Levels)
-    {
-        levelSelect.add(new Option(i, i), null);
-    }
-
-    var gameController =
-    {
-        canvas: null,
-        stage: null,
-        currentMap: null,
-		objectsToDelete: [],
-		currentLevelIndex: 0
-    };
-	
-	gameController.loadNextLevel = function() {
-        levelSelect.selectedIndex = levelSelect.selectedIndex + 1;
-        onLevelSelectChanged(levelSelect);
-	};
-	
-	gameController.reloadLevel = function() {
-		this.loadLevelByIndex(levelSelect.selectedIndex);
-	};
-	
-	gameController.loadLevelByIndex = function(index) {
-        var count = 0;
-        var name = null;
-        for (var levelName in Levels)
-        {
-            if (count == index)
-            {
-                name = levelName
-            }
-            count++;
-        }
-        if (name != null)
-        {
-            this.loadLevelByName(name);
-        }
-    };
-	gameController.loadLevelByName = function(name)
-    {
-        var level = Levels[name];
-        this.loadLevel(level, name);
-	};
-    
-    gameController.loadLevel = function(level, name)
-    {
-        this.currentMap = new Map(name, this.stage, level.map);
-		descriptionHeader.innerHTML = level.description;
-        // Reset everything for the new map.
-        this.stage.removeAllChildren();
-        this.currentMap.parseRows();
-        this.objectsToDelete = [];
- 
-        // Reset player fart count
-        player.fartsRemaining = 10;
-    };
-    
-    function getDistanceEntities() {
-        return gameController.currentMap.distanceEntities;
-    };
-    
-    function getEntityList(newTileX, newTileY) {
-        return gameController.currentMap.getEntityList(newTileX, newTileY);
-    };
-    
-	function addEntity(newEntity) {
-		gameController.currentMap.addEntity(newEntity);
-	};
-	
-	function removeEntity(newEntity)
-    {
-		gameController.objectsToDelete.push(newEntity);
-	};
-    
-    function removeEntityFromMap(newEntity)
-    {
-        gameController.currentMap.removeEntity(newEntity);
-    };
-
-    function onLevelSelectChanged(select)
-    {
-        var selectedIndex = select.selectedIndex;
-        var selectedValue = select.options[selectedIndex].value;
-        gameController.loadLevelByName(selectedValue);
-    }
-
-    gameController.init = function()
-    {
-        this.canvas = document.getElementById("gameCanvas");
-        this.stage = new createjs.Stage(this.canvas);
-
-        this.loadLevelByIndex(0);
-    };
-
-    gameController.tick = function()
-    {
-        for(var i = 0; i < this.stage.children.length; i++) {
-			if (this.stage.children[i].tick) {
-				this.stage.children[i].tick();
-			}
-		}
-		this.stage.update();
-		
-		for(var i = this.objectsToDelete.length - 1; i >= 0; i--) {
-			this.stage.removeChild(this.objectsToDelete[i]);
-            this.currentMap.removeEntity(this.objectsToDelete[i]);
-		}
-		
-		this.objectsToDelete = [];
-    };
-
-    function init()
-    {
-        gameController.init();
-
-        addEntity(new NPC(2, 2, Content.getSpriteSheet("HeatherTall.png"), { startX: 2 * TileWidth, startY: 2 * TileHeight, endX: 16 * TileWidth, endY: 2 * TileHeight, pauseTime: 1000.0, moveTime: 400.0 }));
-        addEntity(new NPC(2, 3, Content.getSpriteSheet("M_Short_Grandpa.png"), { startX: 2 * TileWidth, startY: 3 * TileHeight, endX: 2 * TileWidth, endY: 5 * TileHeight, pauseTime: 500.0, moveTime: 1000.0 }));
-        addEntity(new NPC(4, 7, Content.getSpriteSheet("FlowerGirlToo.png"), { startX: 3 * TileWidth, startY: 7 * TileHeight, endX: 8 * TileWidth, endY: 7 * TileHeight, pauseTime: 0.0, moveTime: 10.0 }));
-
-        // start game timer
-        createjs.Ticker.addListener(gameController);
-        createjs.Ticker.setFPS(60);
-
-        gameController.stage.update();
-    };
+    window.addEventListener("keydown", init, true);
 </script>
 </body>
 </html>
