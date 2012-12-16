@@ -41,26 +41,32 @@
 		var interval = createjs.Ticker.getInterval();
 		var prevX = this.x;
 		var prevY = this.y;
-        var prevTileX = this.getTileX();
-        var prevTileY = this.getTileY();
-		
+        
+        var newX = this.x;
+        var newY = this.y;
+        
 		var hasMoved = false;
 		
 		if (!this.stationary) {
 			if (this.vX != 0) {
-				this.x = this.x + ((interval / 1000) * this.vX);
+				newX = this.x + ((interval / 1000) * this.vX);
 				hasMoved = true;
 			}
 			if (this.vY != 0) {
-				this.y = this.y + ((interval / 1000) * this.vY);
+				newY = this.y + ((interval / 1000) * this.vY);
 				hasMoved = true;
 			}
 		}
-		
+        
+        var newTileX = Math.floor(newX / TileWidth);
+		var newTileY = Math.floor(newY / TileHeight);
+        
 		if (hasMoved) {
             
+            if (this.checkCollision(newTileX, newTileY)) {
             
-            if (this.checkCollision(this.getTileX(), this.getTileY())) {
+                this.x = newX;
+                this.y = newY;
                 var ticks = interval * createjs.Ticker.getTicks();
             
                 if (ticks - this.lastSpawned > this.spawnRate) {
@@ -76,9 +82,6 @@
                     addEntity(newFartling);
                 }
             } else {
-                this.x = prevX;
-                this.y = prevY;
-                
                 var entityList = getEntityList(this.getTileX(), this.getTileY());
                 
                 entityList.push(this);
