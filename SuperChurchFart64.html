@@ -45,6 +45,7 @@
 <script src="js/CollidableEntity.js" type="text/javascript"></script>
 <script src="js/Content.js" type="text/javascript"></script>
 <script src="js/Player.js" type="text/javascript"></script>
+<script src="js/NPC.js" type="text/javascript"></script>
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Fan.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
@@ -169,6 +170,10 @@
     function init()
     {
         gameController.init();
+
+        addEntity(new NPC(2, 2, Content.getSpriteSheet("HeatherTall.png"), { startX: 2 * TileWidth, startY: 2 * TileHeight, endX: 16 * TileWidth, endY: 2 * TileHeight, pauseTime: 1000.0, moveTime: 400.0 }));
+        addEntity(new NPC(2, 3, Content.getSpriteSheet("M_Short_Grandpa.png"), { startX: 2 * TileWidth, startY: 3 * TileHeight, endX: 2 * TileWidth, endY: 5 * TileHeight, pauseTime: 500.0, moveTime: 1000.0 }));
+        addEntity(new NPC(4, 7, Content.getSpriteSheet("FlowerGirlToo.png"), { startX: 3 * TileWidth, startY: 7 * TileHeight, endX: 8 * TileWidth, endY: 7 * TileHeight, pauseTime: 0.0, moveTime: 10.0 }));
 
         // start game timer
         createjs.Ticker.addListener(gameController);
