@@ -35,3 +35,26 @@ Content.getSpriteSheet = function(filename) {
 
     return sprite;
 };
+
+Content.getFartSpriteSheet = function(filename) {
+	// load from cache if available
+    for (var i in this.loadedSpriteSheets)
+        if (this.loadedSpriteSheets[i].filename == filename)
+            return this.loadedSpriteSheets[i].sprite;
+
+    // load sprite, configure animations
+    var sprite = new createjs.SpriteSheet({
+        images: [ "images/" + filename ],
+        // weird regX and regY values to accomodate setTileX/Y system
+        frames: { width: 32, height: 32, count: 7, regX: -4, regY: 0 },
+        animations: {
+			idle: 0,
+            fart: { frames: [ 0, 1, 2, 3, 4, 5, 6, 7 ], frequency: 40 }
+        }
+    });
+
+    // add to cache
+    this.loadedSpriteSheets.push({ filename: filename, sprite: sprite });
+
+    return sprite;
+};
