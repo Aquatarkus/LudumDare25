@@ -29,6 +29,8 @@
 <script src="js/Levels.js"></script>
 <script src="js/Entity.js" type="text/javascript"></script>
 <script src="js/CollidableEntity.js" type="text/javascript"></script>
+<script src="js/Content.js" type="text/javascript"></script>
+<script src="js/Player.js" type="text/javascript"></script>
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
 <script>
@@ -124,6 +126,8 @@
         bigOldFart.setTileY(4);
         
         addEntity(bigOldFart);
+
+        addEntity(player);
 
         // start game timer
         createjs.Ticker.addListener(gameController);
