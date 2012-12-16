@@ -11,8 +11,8 @@ Entity.prototype.initialize = function(x, y, direction)
 {
     this.Container_initialize();
 
-    this.x = x;
-    this.y = y;
+    this.setTileX(x);
+    this.setTileY(y);
     this.direction = direction;
 
     this.shape = new createjs.Shape();

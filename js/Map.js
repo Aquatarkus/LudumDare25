@@ -86,8 +86,6 @@ Map.prototype.parseRows = function()
 Map.prototype.entityForCharacter = function(character, x, y)
 {
     var entity = null;
-    x *= TileWidth;
-    y *= TileHeight;
     switch (character)
     {
         case "#":
