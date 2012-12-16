@@ -10,7 +10,7 @@ var Player = function(x, y, spriteSheet) {
     window.addEventListener("keydown", this.handleKeyDown, true);
     window.addEventListener("keyup", this.handleKeyUp, true);
 };
-Player.prototype = new Entity();
+Player.prototype = new CollidableEntity();
 Player.prototype.constructor = Player;
 Player.prototype.makeShape = function() { };
 
@@ -151,10 +151,46 @@ Player.prototype.tick = function() {
             this.targetPosition.x = this.x + (TileWidth * delta.x);
             this.targetPosition.y = this.y + (TileHeight * delta.y);
 
+            // if you can't move to desired target position, don't move
+            if (!this.checkCollision(this.targetPosition.x / TileWidth, this.targetPosition.y / TileHeight)) {
+                switch (this.facing) {
+                    case Direction.Up:
+                        this.animation.gotoAndPlay("idleNorth");
+                        break;
+
+                    case Direction.Left:
+                        this.animation.gotoAndPlay("idleWest");
+                        break;
+
+                    case Direction.Down:
+                        this.animation.gotoAndPlay("idleSouth");
+                        break;
+
+                    case Direction.Right:
+                        this.animation.gotoAndPlay("idleEast");
+                        break;
+                }
+
+                return;
+            }
+
             this.isMoving = true;
             this.moveStartTime = new Date();
         }
     }
 };
 
-var player = new Player(2, 2, Content.getSpriteSheet("M_Elvis.png"));
+Player.prototype.handleCollisions = function(entityList) {
+    var result = true;
+
+    for (var i = 0; i < entityList.length; i++) {
+        if (entityList[i].collides) {
+            result = false;
+            break;
+        }
+    }
+
+    return result;
+};
+
+var player = new Player(0, 0, Content.getSpriteSheet("M_Elvis.png"));

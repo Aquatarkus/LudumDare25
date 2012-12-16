@@ -10,7 +10,8 @@ Content.getSpriteSheet = function(filename) {
     // load sprite, configure animations
     var sprite = new createjs.SpriteSheet({
         images: [ "images/" + filename ],
-        frames: { width: 24, height: 32, count: 12, regX: 12, regY: 32 },
+        // weird regX and regY values to accomodate setTileX/Y system
+        frames: { width: 24, height: 32, count: 12, regX: -4, regY: 0 },
         animations: {
             // default idle
             idle: 7,
