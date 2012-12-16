@@ -139,8 +139,8 @@ Map.prototype.entityForCharacter = function(character, x, y)
         case "V":
             // villain
             entity = player;
-            player.x = x;
-            player.y = y;
+            player.setTileX(x);
+            player.setTileY(y);
             break;
         case "J":
             entity = new Jesus(x, y, Direction.Down);
