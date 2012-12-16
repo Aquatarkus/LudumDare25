@@ -7,7 +7,6 @@ var Fart = function(x, y, direction)
 Fart.prototype = new CollidableEntity();
 Fart.prototype.constructor = Fart;
 
-<<<<<<< HEAD
 Fart.prototype.stationary = false;
 Fart.prototype.vX = 0;
 Fart.prototype.vY = 0;
@@ -17,22 +16,35 @@ Fart.prototype.decay = 4000;
 // the first frame of its creation, count that it has changed tiles as well.
 Fart.prototype.hasChangedTile = true;
 
+
 Fart.prototype.makeShape = function() {
-    var g = this.shape.graphics;
+	var g = this.shape.graphics;
 
-    g.clear();
-
-    g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
-    g.endFill();
-    g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
+	g.clear();
+	
+	g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
+	g.endFill();
+	g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
 };
 
 Fart.prototype.getTileX = function() {
-    return Math.round(this.x / TileWidth);
+	if (this.vX > 0) {
+		return Math.floor(this.x / TileWidth);
+	} else if (this.vX < 0) {
+		return Math.ceil(this.x / TileWidth);
+	} else {
+		return Math.round(this.x / TileWidth);
+	}
 };
 
 Fart.prototype.getTileY = function() {
-    return Math.round(this.y / TileHeight);
+	if (this.vY > 0) {
+		return Math.floor(this.y / TileHeight);
+	} else if (this.vY < 0) {
+		return Math.ceil(this.y / TileHeight);
+	} else {
+		return Math.round(this.y / TileHeight);
+	}
 };
 
 Fart.prototype.tick = function() {
@@ -54,58 +66,6 @@ Fart.prototype.tick = function() {
         if (this.vX != 0) {
             newX = this.x + ((interval / 1000) * this.vX);
             hasMoved = true;
-=======
-    var Fart = function(x, y, direction)
-    {
-        Entity.call(this, x, y, direction);
-    };
-    Fart.prototype = new CollidableEntity();
-    Fart.prototype.constructor = Fart;
-	
-	Fart.prototype.stationary = false;
-	Fart.prototype.vX = 0;
-	Fart.prototype.vY = 0;
-	Fart.prototype.spawnRate = 200;
-	Fart.prototype.lastSpawned = 0;
-	Fart.prototype.decay = 4000;
-	// the first frame of its creation, count that it has changed tiles as well.
-	Fart.prototype.hasChangedTile = true;
-	
-	Fart.prototype.makeShape = function() {
-		var g = this.shape.graphics;
-
-		g.clear();
-		
-		g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
-		g.endFill();
-		g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
-	};
-    
-    Fart.prototype.getTileX = function() {
-		if (this.vX > 0) {
-			return Math.floor(this.x / TileWidth);
-		} else if (this.vX < 0) {
-			return Math.ceil(this.x / TileWidth);
-		} else {
-			return Math.round(this.x / TileWidth);
-		}
-    };
-    
-    Fart.prototype.getTileY = function() {
-		if (this.vY > 0) {
-			return Math.floor(this.y / TileHeight);
-		} else if (this.vY < 0) {
-			return Math.ceil(this.y / TileHeight);
-		} else {
-			return Math.round(this.y / TileHeight);
-		}
-    };
-	
-	Fart.prototype.tick = function() {
-    
-        if (!this.stationary) {
-            this.checkDistanceEntities();
->>>>>>> Fart transitions between tiles fixed!
         }
         if (this.vY != 0) {
             newY = this.y + ((interval / 1000) * this.vY);
