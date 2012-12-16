@@ -88,9 +88,9 @@ var Funeral = [
 ];
 
 var Levels =
-    [
-        AlterBoy,
-        Wedding,
-        Baptism,
-        Funeral
-    ];
+{
+    AlterBoy : AlterBoy,
+    Wedding : Wedding,
+    Baptism : Baptism,
+    Funeral : Funeral
+};

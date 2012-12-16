@@ -31,7 +31,7 @@
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
 <script>
-
+    // add levels to the level selector
     var levelSelect = document.getElementById("levelSelect");
     for (var i in Levels)
     {
@@ -69,14 +69,21 @@
     function onLevelSelectChanged(select)
     {
         var selectedIndex = select.selectedIndex;
-        gameController.loadLevel(selectedIndex);
+        var selectedValue = select.options[selectedIndex].value;
+        gameController.loadLevel(selectedValue);
     }
 
     gameController.init = function()
     {
         this.canvas = document.getElementById("gameCanvas");
         this.stage = new createjs.Stage(this.canvas);
-        this.loadLevel(0);
+        var firstLevel = null;
+        for (var levelName in Levels)
+        {
+            firstLevel = levelName;
+            break;
+        }
+        this.loadLevel(firstLevel);
     };
 
     gameController.tick = function()
