@@ -8,7 +8,7 @@ var Fan = function(x, y, direction)
 Fan.prototype = new Entity();
 Fan.prototype.constructor = Fan;
 
-Fan.prototype.force = 80;
+Fan.prototype.force = 120;
 
 Fan.prototype.makeShape = function() {
     var g = this.shape.graphics;
