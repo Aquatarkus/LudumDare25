@@ -133,6 +133,15 @@ Map.prototype.entityForCharacter = function(character, x, y)
             // Table
             entity = new Table(x, y);
             break;
+        case "V":
+            // villain
+            entity = player;
+            player.setTileX(x);
+            player.setTileY(y);
+            break;
+        case "J":
+            entity = new Jesus(x, y, Direction.Down);
+            break;
         default:
             console.log("Unknown map character: "+character);
             break;

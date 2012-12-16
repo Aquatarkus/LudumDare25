@@ -4,25 +4,26 @@
 // [PPPP] - pews
 // {} - doors
 // <>^v - fans
+// V - Villain
 
-var Mass = [
+var Baptism = [
 "########################",
-"#c       c TT c       c#",
-"#          TT          #",
-"#          +           #",
 "#                      #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#   SSSSSS    SSSSSS   #",
+"#   SSSSSS ++ SSSSSS   #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#c                    c#",
+"#  [PPPPPPP  PPPPPPP]  #",
+"#                      #",
+"#          V           #",
 "###########{}###########"
 ];
 
@@ -43,28 +44,7 @@ var Wedding = [
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#                      #",
-"###########{}###########"
-];
-
-var Baptist = [
-"########################",
-"#                      #",
-"#                      #",
-"#   SSSSSS    SSSSSS   #",
-"#   SSSSSS ++ SSSSSS   #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
-"#                      #",
-"#                      #",
+"#          V           #",
 "###########{}###########"
 ];
 
@@ -85,14 +65,57 @@ var Funeral = [
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
+"#          V           #",
+"###########{}###########"
+];
+
+var PapalConclave = [
+"########################",
+"#c       c TT c       c#",
+"#          TT          #",
+"#          +           #",
 "#                      #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#c         V          c#",
+"###########{}###########"
+];
+
+var FartOnJesus = [
+"########################",
+"#c         J          c#",
+"#                      #",
+"#                      #",
+"#                      #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#                      #",
+"#c         V          c#",
 "###########{}###########"
 ];
 
 var Levels =
 {
-    Mass: Mass,
+    Baptism: Baptism,
     Wedding : Wedding,
-    Baptist : Baptist,
-    Funeral : Funeral
+    Funeral : Funeral,
+    PapalConclave: PapalConclave,
+    FartOnJesus : FartOnJesus
 };

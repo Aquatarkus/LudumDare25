@@ -72,6 +72,8 @@ var Wall = function(x, y)
     Obstacle.call(this, x, y);
     this.name = "Wall";
     this.setColor("#000000", "#dfdfdf");
+    var wallBitmap = new createjs.Bitmap("images/dark_wall.png");
+    this.addChild(wallBitmap);
 };
 Wall.prototype = new Obstacle();
 Wall.prototype.constructor = Wall;
@@ -135,7 +137,7 @@ var Table = function(x, y)
     Obstacle.call(this, x, y);
     this.name = "Singer";
     this.setColor("yellow", "brown");
-    var tableBitmap = new createjs.Bitmap("images/light_table.png");
+    var tableBitmap = new createjs.Bitmap("images/light_wall.png");
     this.addChild(tableBitmap);
 }
 Table.prototype = new Obstacle();
