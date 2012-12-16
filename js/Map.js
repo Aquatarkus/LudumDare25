@@ -26,6 +26,8 @@ Map.prototype.addEntity = function(entity)
 
 Map.prototype.parseRows = function()
 {
+    this.entities = [];
+    
     for (var x = 0; x < this.columnCount; x++)
     {
         this.entities[x] = [];

@@ -29,13 +29,23 @@
     {
         canvas: null,
         stage: null,
-        objects: [],
+        levels: [],
+        currentMap: null,
 		objectsToDelete: []
     };
-
-	function addEntity(newEntity)
-    {
-		gameController.stage.addChild(newEntity);
+    
+    gameController.loadLevel = function(index) {
+        // Choose the current map.
+        this.currentMap = this.levels[index];
+        
+        // Reset everything for the new map.
+        this.stage.clear();
+        this.currentMap.parseRows();
+        this.objectsToDelete = [];
+    };
+    
+	function addEntity(newEntity) {
+		gameController.currentMap.addEntity(newEntity);
 	};
 	
 	function removeEntity(newEntity)
@@ -73,9 +83,8 @@
             "############{}############"
         ];
 
-        this.mapLevel1 = new Map("Level 1", this.stage, rowsLevel1);
-        this.mapLevel1.printRows();
-        this.mapLevel1.printEntities();
+        this.levels.push(new Map("Level 1", this.stage, rowsLevel1));
+        this.loadLevel(0);
     };
 
     gameController.tick = function()
