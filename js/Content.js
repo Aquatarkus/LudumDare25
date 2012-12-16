@@ -48,7 +48,7 @@ Content.getFartSpriteSheet = function(filename) {
         // weird regX and regY values to accomodate setTileX/Y system
         frames: { width: 32, height: 32, count: 7, regX: -4, regY: 0 },
         animations: {
-			idle: 0,
+			idle: { frames: [0, 1, 2, 3], frequency: 20 },
             fart: { frames: [ 0, 1, 2, 3, 4, 5, 6, 7 ], frequency: 40 }
         }
     });
