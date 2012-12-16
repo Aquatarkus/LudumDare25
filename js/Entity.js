@@ -43,6 +43,15 @@ Entity.prototype.getTileY = function()
     return this.y / TileHeight;
 };
 
+Entity.prototype.setTileX = function(tileX) {
+    this.x = tileX * TileWidth;
+    };
+
+Entity.prototype.setTileY = function(tileY) {
+    this.y = tileY * TileHeight;
+    };
+
+
 var Obstacle = function(x, y, direction)
 {
     Entity.call(this, x, y, direction);
