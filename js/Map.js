@@ -117,6 +117,22 @@ Map.prototype.entityForCharacter = function(character, x, y)
             // right door
             entity = new Door(x, y, Direction.Right);
             break;
+        case "+":
+            // priest
+            entity = new Priest(x, y, Direction.Up);
+            break;
+        case "c":
+            // candle
+            entity = new Candle(x, y);
+            break;
+        case "S":
+            // candle
+            entity = new Singer(x, y, Direction.Down);
+            break;
+        case "T":
+            // candle
+            entity = new Table(x, y);
+            break;
         default:
             console.log("Unknown map character: "+character);
             break;

@@ -5,11 +5,11 @@
 // {} - doors
 // <>^v - fans
 
-var AlterBoy = [
+var Mass = [
 "########################",
-"#                      #",
-"#                      #",
-"#                      #",
+"#c       c TT c       c#",
+"#          TT          #",
+"#          +           #",
 "#                      #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
@@ -22,13 +22,13 @@ var AlterBoy = [
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#                      #",
+"#c                    c#",
 "###########{}###########"
 ];
 
 var Wedding = [
 "########################",
-"#                      #",
+"#          TT          #",
 "#                      #",
 "#                      #",
 "#                      #",
@@ -47,12 +47,12 @@ var Wedding = [
 "###########{}###########"
 ];
 
-var Baptism = [
+var Baptist = [
 "########################",
 "#                      #",
 "#                      #",
-"#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
+"#   SSSSSS    SSSSSS   #",
+"#   SSSSSS ++ SSSSSS   #",
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
@@ -91,8 +91,8 @@ var Funeral = [
 
 var Levels =
 {
-    AlterBoy : AlterBoy,
+    Mass: Mass,
     Wedding : Wedding,
-    Baptism : Baptism,
+    Baptist : Baptist,
     Funeral : Funeral
 };

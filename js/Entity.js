@@ -102,3 +102,39 @@ var Door = function(x, y, direction)
 };
 Door.prototype = new Entity();
 Door.prototype.constructor = Door;
+
+var Candle = function(x, y)
+{
+    Obstacle.call(this, x, y);
+    this.name = "Candle";
+    this.setColor("yellow", "red");
+};
+Candle.prototype = new Entity();
+Candle.prototype.constructor = Candle;
+
+var Priest = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Priest";
+    this.setColor("yellow", "white");
+};
+Priest.prototype = new Entity();
+Priest.prototype.constructor = Priest;
+
+var Singer = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Singer";
+    this.setColor("blue", "white");
+}
+Singer.prototype = new Entity();
+Singer.prototype.constructor = Singer;
+
+var Table = function(x, y)
+{
+    Obstacle.call(this, x, y);
+    this.name = "Singer";
+    this.setColor("yellow", "brown");
+}
+Table.prototype = new Obstacle();
+Table.prototype.constructor = Table;
