@@ -22,7 +22,7 @@ Entity.prototype.initialize = function(x, y, direction)
     this.fillColor = "#00F";
 
     this.makeShape();
-}
+};
 
 Entity.prototype.makeShape = function()
 {
