@@ -26,7 +26,7 @@ Entity.prototype.setColor = function(stroke, fill)
     this.strokeColor = stroke;
     this.fillColor = fill;
     this.makeShape();
-}
+};
 
 Entity.prototype.makeShape = function()
 {
@@ -36,6 +36,11 @@ Entity.prototype.makeShape = function()
 
     g.beginStroke(this.strokeColor).beginFill(this.fillColor).drawRect(0, 0, TileWidth-1, TileHeight-1);
 };
+
+Entity.prototype.clearTile = function()
+{
+    this.shape.graphics.clear();
+}
 
 Entity.prototype.getTileX = function()
 {
@@ -71,7 +76,7 @@ var Wall = function(x, y)
 {
     Obstacle.call(this, x, y);
     this.name = "Wall";
-    this.setColor("#000000", "#dfdfdf");
+    this.clearTile();
     var wallBitmap = new createjs.Bitmap("images/dark_wall.png");
     this.addChild(wallBitmap);
 };
@@ -118,7 +123,9 @@ var Priest = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Priest";
-    this.setColor("yellow", "white");
+    this.clearTile();
+    var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
+    this.addChild(bitmap);
 };
 Priest.prototype = new Entity();
 Priest.prototype.constructor = Priest;
