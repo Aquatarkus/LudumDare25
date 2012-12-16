@@ -37,12 +37,13 @@ Map.prototype.addEntity = function(entity)
     {
         var x = entity.getTileX();
         var y = entity.getTileY();
-        if (this.entities[x]) {
-            if (this.entities[x][y]) {
-                this.entities[x][y].push(entity);
-            }
-        }
+        this.entities[x][y].push(entity);
         this.stage.addChild(entity);
+
+        if (entity.caresAboutDistance)
+        {
+            this.distanceEntities.push(entity);
+        }
     }
 };
 
@@ -147,19 +148,15 @@ Map.prototype.entityForCharacter = function(character, x, y)
             break;
         case ">":
             entity = new Fan(x, y, Direction.Right);
-            this.distanceEntities.push(entity);
             break;
         case "<":
             entity = new Fan(x, y, Direction.Left);
-            this.distanceEntities.push(entity);
             break;
         case "^":
             entity = new Fan(x, y, Direction.Up);
-            this.distanceEntities.push(entity);
             break;
         case "v":
             entity = new Fan(x, y, Direction.Down);
-            this.distanceEntities.push(entity);
             break;
         default:
             console.log("Unknown map character: "+character);

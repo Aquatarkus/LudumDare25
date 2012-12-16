@@ -4,7 +4,12 @@
 // [PPPP] - pews
 // {} - doors
 // <>^v - fans
-// V - Villain
+// V - villain
+// b - baby
+// B - Bride
+// G - groom
+// g - grandpa
+// S - singer
 
 var Baptism = [
 "########################",

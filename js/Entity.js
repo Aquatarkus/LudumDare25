@@ -14,6 +14,7 @@ Entity.prototype.initialize = function(x, y, direction)
     this.setTileX(x);
     this.setTileY(y);
     this.direction = direction;
+    this.caresAboutDistance = false;
 
     this.shape = new createjs.Shape();
     this.addChild(this.shape);
