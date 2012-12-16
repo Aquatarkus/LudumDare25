@@ -136,12 +136,3 @@ var Levels =
     PapalConclave: PapalConclave,
     FartOnJesus : FartOnJesus
 };
-
-var LevelsByIndex =
-[
-	Baptism,
-    Wedding,
-    Funeral,
-    PapalConclave,
-    FartOnJesus
-];

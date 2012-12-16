@@ -51,6 +51,7 @@
 <script>
     // add levels to the level selector
     var levelSelect = document.getElementById("levelSelect");
+
     var descriptionHeader = document.getElementById("descriptionHeader");
     var fartSound = document.getElementById("fartSound");
     for (var i in Levels)
@@ -68,34 +69,40 @@
     };
 	
 	gameController.loadNextLevel = function() {
-		this.loadLevelByIndex(this.currentLevelIndex + 1);
+        levelSelect.selectedIndex = levelSelect.selectedIndex + 1;
+        onLevelSelectChanged(levelSelect);
 	};
 	
 	gameController.reloadLevel = function() {
-		this.loadLevelByIndex(this.currentLevelIndex);
+		this.loadLevelByIndex(levelSelect.selectedIndex);
 	};
 	
 	gameController.loadLevelByIndex = function(index) {
-		this.currentLevelIndex = index;
-		// Choose the current map.
-        this.loadLevel(new Map(index, this.stage, LevelsByIndex[index].map));
-	};
-	gameController.loadLevelByName = function(name) {
-		var levelIndex = 0;
+        var count = 0;
+        var name = null;
         for (var levelName in Levels)
         {
-            if (levelName == name) {
-				this.loadLevelByIndex(levelIndex);
-				break;
-			}
-			levelIndex++;
+            if (count == index)
+            {
+                name = levelName
+            }
+            count++;
         }
+        if (name != null)
+        {
+            this.loadLevelByName(name);
+        }
+    };
+	gameController.loadLevelByName = function(name)
+    {
+        var level = Levels[name];
+        this.loadLevel(level, name);
 	};
     
-    gameController.loadLevel = function(map)
+    gameController.loadLevel = function(level, name)
     {
-        this.currentMap = map;
-		descriptionHeader.innerHTML = map.description;
+        this.currentMap = new Map(name, this.stage, level.map);
+		descriptionHeader.innerHTML = level.description;
         // Reset everything for the new map.
         this.stage.removeAllChildren();
         this.currentMap.parseRows();
