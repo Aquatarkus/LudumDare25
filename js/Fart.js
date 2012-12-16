@@ -3,7 +3,13 @@
 var Fart = function(x, y, direction)
 {
     Entity.call(this, x, y, direction);
+	
+	this.animation = new createjs.BitmapAnimation(Content.getFartSpriteSheet("fart.png"));
+    this.animation.gotoAndPlay("fart");
+
+    this.addChild(this.animation);
 };
+
 Fart.prototype = new CollidableEntity();
 Fart.prototype.constructor = Fart;
 
@@ -15,16 +21,10 @@ Fart.prototype.lastSpawned = 0;
 Fart.prototype.decay = 4000;
 // the first frame of its creation, count that it has changed tiles as well.
 Fart.prototype.hasChangedTile = true;
-
+Fart.prototype.isDissipating = true;
 
 Fart.prototype.makeShape = function() {
-	var g = this.shape.graphics;
-
-	g.clear();
 	
-	g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
-	g.endFill();
-	g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
 };
 
 Fart.prototype.getTileX = function() {
@@ -104,14 +104,25 @@ Fart.prototype.tick = function() {
                 entityList.push(this);
             }
             hasMoved = false;
+			
             this.vX = 0;
             this.vY = 0;
         }
     }
 
-    if (!hasMoved) {
+    if (hasMoved) {
+		if (this.isDissipating) {
+			this.isDissipating = false;
+			this.animation.gotoAndPlay("idle");
+		}
+	} else {
         var newAlpha = this.alpha - (interval / this.decay);
 
+		if (!this.isDissipating) {
+			this.isDissipating = true;
+			this.animation.gotoAndPlay("fart");
+		}
+		
         if (newAlpha <= 0) {
             this.alpha = 0;
             removeEntity(this);
@@ -120,6 +131,8 @@ Fart.prototype.tick = function() {
         }
     }
 };
+
+
 
 Fart.prototype.handleCollisions = function(entityList) {
     var result = true;
