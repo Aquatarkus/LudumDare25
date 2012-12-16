@@ -30,6 +30,14 @@
 		g.beginFill("#0F0").drawCircle(0, 0, 16, 16);
 		g.endFill();
 	};
+    
+    Fart.prototype.getTileX = function() {
+        return Math.floor(this.x / TileWidth);
+    };
+    
+    Fart.prototype.getTileY = function() {
+        return Math.floor(this.y / TileHeight);
+    };
 	
 	
 	Fart.prototype.tick = function() {
