@@ -20,46 +20,92 @@ Player.prototype.moveStartPosition = { x: 0, y: 0 };
 Player.prototype.targetPosition = { x: 0, y: 0 };
 Player.prototype.moveStartTime = null;
 Player.prototype.moveTime = 300.0;
+Player.prototype.fartsRemaining = 1;
+Player.prototype.fartSpeed = 50.0;
 Player.prototype.keyboardState = {
     isUpHeld: false,
     isLeftHeld: false,
     isDownHeld: false,
-    isRightHeld: false
+    isRightHeld: false,
+    isFartButtonHeld: false
+};
+
+Player.prototype.fart = function() {
+    // if no stock, return
+    if (this.fartsRemaining-- <= 0) {
+        return;
+    }
+
+    var fart = new Fart(this.x, this.y);
+    var fartDirection = { x: 0, y: 0 };
+
+    // fart launches opposite player facing
+    switch (this.facing) {
+        case Direction.Up:
+            fartDirection.y = 1;
+            break;
+
+        case Direction.Left:
+            fartDirection.x = 1;
+            break;
+
+        case Direction.Down:
+            fartDirection.y = -1;
+            break;
+
+        case Direction.Right:
+            fartDirection.x = -1;
+            break;
+    }
+
+    fart.vX = fartDirection.x * this.fartSpeed;
+    fart.vY = fartDirection.y * this.fartSpeed;
+    // hack: should get from tile function 
+    fart.x = this.x + TileWidth / 2;
+    fart.y = this.y + TileHeight / 2;
+
+    addEntity(fart);
 };
 
 Player.prototype.handleKeyDown = function(evt) {
     // if movement controls, prevent default
     switch (evt.keyCode) {
-        case MovementKeys.Up:
-        case MovementKeys.Down:
-        case MovementKeys.Left:
-        case MovementKeys.Right:
-        case MovementKeys.W:
-        case MovementKeys.A:
-        case MovementKeys.S:
-        case MovementKeys.D:
+        case Keys.Up:
+        case Keys.Down:
+        case Keys.Left:
+        case Keys.Right:
+        case Keys.W:
+        case Keys.A:
+        case Keys.S:
+        case Keys.D:
             evt.preventDefault();
     }
 
     // set keyboard state (used in tick())
     switch (evt.keyCode) {
-        case MovementKeys.Up:
-        case MovementKeys.W:
+        case Keys.Space:
+        case Keys.Shift:
+        case Keys.X:
+            player.keyboardState.isFartButtonHeld = true;
+            break;
+
+        case Keys.Up:
+        case Keys.W:
             player.keyboardState.isUpHeld = true;
             break;
         
-        case MovementKeys.Left:
-        case MovementKeys.A:
+        case Keys.Left:
+        case Keys.A:
             player.keyboardState.isLeftHeld = true;
             break;
         
-        case MovementKeys.Down:
-        case MovementKeys.S:
+        case Keys.Down:
+        case Keys.S:
             player.keyboardState.isDownHeld = true;
             break;
         
-        case MovementKeys.Right:
-        case MovementKeys.D:
+        case Keys.Right:
+        case Keys.D:
             player.keyboardState.isRightHeld = true;
             break;
     }
@@ -67,23 +113,29 @@ Player.prototype.handleKeyDown = function(evt) {
 
 Player.prototype.handleKeyUp = function(evt) {
     switch (evt.keyCode) {
-        case MovementKeys.Up:
-        case MovementKeys.W:
+        case Keys.Space:
+        case Keys.Shift:
+        case Keys.X:
+            player.keyboardState.isFartButtonHeld = false;
+            break;
+
+        case Keys.Up:
+        case Keys.W:
             player.keyboardState.isUpHeld = false;
             break;
         
-        case MovementKeys.Left:
-        case MovementKeys.A:
+        case Keys.Left:
+        case Keys.A:
             player.keyboardState.isLeftHeld = false;
             break;
         
-        case MovementKeys.Down:
-        case MovementKeys.S:
+        case Keys.Down:
+        case Keys.S:
             player.keyboardState.isDownHeld = false;
             break;
         
-        case MovementKeys.Right:
-        case MovementKeys.D:
+        case Keys.Right:
+        case Keys.D:
             player.keyboardState.isRightHeld = false;
             break;
     }
@@ -118,6 +170,11 @@ Player.prototype.tick = function() {
     }
 
     if (!this.isMoving) {
+        if (this.keyboardState.isFartButtonHeld) {
+            this.fart();
+            return;
+        }
+
         var delta = { x: 0, y: 0 };
         var newAnimName = null;
         if (this.keyboardState.isUpHeld) {

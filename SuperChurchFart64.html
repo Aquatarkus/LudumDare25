@@ -59,6 +59,9 @@
         this.stage.removeAllChildren();
         this.currentMap.parseRows();
         this.objectsToDelete = [];
+ 
+        // Reset player fart count
+        player.fartsRemaining = 1;
     };
     
     function getDistanceEntities() {

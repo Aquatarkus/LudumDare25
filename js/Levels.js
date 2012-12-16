@@ -5,13 +5,10 @@
 // {} - doors
 // <>^v - fans
 // V - Villain
-// S - singers
-// + - priests
-//
 
 var Baptism = [
 "########################",
-"#                      #",
+"#>          v          #",
 "#                      #",
 "#   SSSSSS    SSSSSS   #",
 "#   SSSSSS ++ SSSSSS   #",
@@ -26,7 +23,7 @@ var Baptism = [
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#          V           #",
+"#^         V>          #",
 "###########{}###########"
 ];
 
