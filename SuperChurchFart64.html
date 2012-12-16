@@ -117,6 +117,7 @@
 
         // start game timer
         createjs.Ticker.addListener(gameController);
+        createjs.Ticker.setFPS(60);
 
         gameController.stage.update();
     };
