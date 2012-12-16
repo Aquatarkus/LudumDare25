@@ -14,7 +14,9 @@
 	Fart.prototype.spawnRate = 200;
 	Fart.prototype.lastSpawned = 0;
 	Fart.prototype.decay = 4000;
-    
+	// the first frame of its creation, count that it has changed tiles as well.
+	Fart.prototype.hasChangedTile = true;
+	
 	Fart.prototype.makeShape = function() {
 		var g = this.shape.graphics;
 
@@ -22,6 +24,7 @@
 		
 		g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
 		g.endFill();
+		g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
 	};
     
     Fart.prototype.getTileX = function() {
@@ -60,11 +63,13 @@
         
         var newTileX = Math.round(newX / TileWidth);
 		var newTileY = Math.round(newY / TileHeight);
-        
+		        
 		if (hasMoved) {
             
             if (this.checkCollision(newTileX, newTileY)) {
             
+				this.hasChangedTile = (newTileX != this.getTileX() || newTileY != this.getTileY());
+			
                 this.x = newX;
                 this.y = newY;
                 var ticks = interval * createjs.Ticker.getTicks();
@@ -119,8 +124,12 @@
     };
     
     Fart.prototype.checkDistanceEntities = function() {
-        var entities = getDistanceEntities();
-        
+        if (!this.hasChangedTile) {
+			return;
+		}
+		
+		var entities = getDistanceEntities();
+		
         var closestDE = null;
         var closestDist = 9999;
         
