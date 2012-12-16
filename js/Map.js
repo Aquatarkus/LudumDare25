@@ -90,12 +90,20 @@ Map.prototype.entityForCharacter = function(character, x, y)
             entity = new Pew(x, y, Direction.Down);
             break;
         case "[":
-            // left pew end
-            entity = new PewEnd(x, y, Direction.Left);
-            break;
+        // left pew end
+        entity = new PewEnd(x, y, Direction.Left);
+        break;
         case "]":
             // right pew end
             entity = new PewEnd(x, y, Direction.Right);
+            break;
+        case "{":
+            // left door
+            entity = new Door(x, y, Direction.Left);
+            break;
+        case "}":
+            // right door
+            entity = new Door(x, y, Direction.Right);
             break;
         default:
             console.log("Unknown map character: "+character);

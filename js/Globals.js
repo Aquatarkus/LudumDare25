@@ -1,7 +1,7 @@
 // Globals.js
 
-var TileWidth = 24;
-var TileHeight = 24;
+var TileWidth = 32;
+var TileHeight = 32;
 
 var Direction =
 {

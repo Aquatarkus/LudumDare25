@@ -18,11 +18,15 @@ Entity.prototype.initialize = function(x, y, direction)
     this.shape = new createjs.Shape();
     this.addChild(this.shape);
 
-    this.strokeColor = "#F00";
-    this.fillColor = "#00F";
-
-    this.makeShape();
+    this.setColor("#F00", "#00F");
 };
+
+Entity.prototype.setColor = function(stroke, fill)
+{
+    this.strokeColor = stroke;
+    this.fillColor = fill;
+    this.makeShape();
+}
 
 Entity.prototype.makeShape = function()
 {
@@ -30,7 +34,7 @@ Entity.prototype.makeShape = function()
 
     g.clear();
 
-    g.beginStroke(this.strokeColor).beginFill(this.fillColor).drawRect(0, 0, TileWidth, TileHeight);
+    g.beginStroke(this.strokeColor).beginFill(this.fillColor).drawRect(0, 0, TileWidth-1, TileHeight-1);
 };
 
 Entity.prototype.getTileX = function()
@@ -67,6 +71,7 @@ var Wall = function(x, y)
 {
     Obstacle.call(this, x, y);
     this.name = "Wall";
+    this.setColor("#000000", "#dfdfdf");
 };
 Wall.prototype = new Obstacle();
 Wall.prototype.constructor = Wall;
@@ -75,6 +80,7 @@ var Pew = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
     this.name="Pew";
+    this.setColor("#c04000", "#A05220");
 };
 Pew.prototype = new Obstacle();
 Pew.prototype.constructor = Pew;
@@ -83,6 +89,16 @@ var PewEnd = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
     this.name = "PewEnd";
+    this.setColor("#DAA520", "#804618");
 };
 PewEnd.prototype = new Obstacle();
 PewEnd.prototype.constructor = PewEnd;
+
+var Door = function(x, y, direction)
+{
+    Entity.call(this, x, y, direction);
+    this.name = "Door";
+    this.setColor("#E2CACA", "#A67B5B");
+};
+Door.prototype = new Entity();
+Door.prototype.constructor = Door;
