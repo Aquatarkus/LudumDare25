@@ -19,18 +19,10 @@
 
 		g.clear();
 		
-		g.beginFill("#0F0").drawCircle(0, 0, 16, 16);
+		g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
 		g.endFill();
 	};
     
-    Fart.prototype.getTileX = function() {
-        return Math.floor(this.x / TileWidth);
-    };
-    
-    Fart.prototype.getTileY = function() {
-        return Math.floor(this.y / TileHeight);
-    };
-	
 	
 	Fart.prototype.tick = function() {
     
@@ -58,8 +50,8 @@
 			}
 		}
         
-        var newTileX = Math.floor(newX / TileWidth);
-		var newTileY = Math.floor(newY / TileHeight);
+        var newTileX = Math.round(newX / TileWidth);
+		var newTileY = Math.round(newY / TileHeight);
         
 		if (hasMoved) {
             
@@ -83,8 +75,9 @@
                 }
             } else {
                 var entityList = getEntityList(this.getTileX(), this.getTileY());
-                
-                entityList.push(this);
+                if (entityList) {
+                    entityList.push(this);
+                }
                 hasMoved = false;
                 this.vX = 0;
                 this.vY = 0;
