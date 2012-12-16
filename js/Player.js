@@ -65,6 +65,7 @@ Player.prototype.fart = function() {
     fart.y = this.y;
 
     addEntity(fart);
+    fartSound.play();
 };
 
 Player.prototype.handleKeyDown = function(evt) {
