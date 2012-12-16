@@ -16,22 +16,35 @@ Fart.prototype.decay = 4000;
 // the first frame of its creation, count that it has changed tiles as well.
 Fart.prototype.hasChangedTile = true;
 
+
 Fart.prototype.makeShape = function() {
-    var g = this.shape.graphics;
+	var g = this.shape.graphics;
 
-    g.clear();
-
-    g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
-    g.endFill();
-    g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
+	g.clear();
+	
+	g.beginFill("#0F0").drawCircle(16, 16, 16, 16);
+	g.endFill();
+	g.beginStroke("#F00").drawRect(0, 0, TileWidth-1, TileHeight-1);
 };
 
 Fart.prototype.getTileX = function() {
-    return Math.round(this.x / TileWidth);
+	if (this.vX > 0) {
+		return Math.floor(this.x / TileWidth);
+	} else if (this.vX < 0) {
+		return Math.ceil(this.x / TileWidth);
+	} else {
+		return Math.round(this.x / TileWidth);
+	}
 };
 
 Fart.prototype.getTileY = function() {
-    return Math.round(this.y / TileHeight);
+	if (this.vY > 0) {
+		return Math.floor(this.y / TileHeight);
+	} else if (this.vY < 0) {
+		return Math.ceil(this.y / TileHeight);
+	} else {
+		return Math.round(this.y / TileHeight);
+	}
 };
 
 Fart.prototype.tick = function() {

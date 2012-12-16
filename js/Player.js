@@ -22,6 +22,7 @@ Player.prototype.moveStartTime = null;
 Player.prototype.moveTime = 300.0;
 Player.prototype.fartsRemaining = 64;
 Player.prototype.fartSpeed = 50.0;
+
 Player.prototype.keyboardState = {
     isUpHeld: false,
     isLeftHeld: false,
