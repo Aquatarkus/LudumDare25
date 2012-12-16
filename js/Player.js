@@ -60,9 +60,8 @@ Player.prototype.fart = function() {
 
     fart.vX = fartDirection.x * this.fartSpeed;
     fart.vY = fartDirection.y * this.fartSpeed;
-    // hack: should get from tile function 
-    fart.x = this.getTileX() * TileWidth;
-    fart.y = this.getTileY() * TileHeight;
+    fart.x = this.x;
+    fart.y = this.y;
 
     addEntity(fart);
 };
