@@ -124,6 +124,10 @@ Map.prototype.entityForCharacter = function(character, x, y)
             // candle
             entity = new Candle(x, y);
             break;
+        case "C":
+            // cardinal
+            entity = new Cardinal(x, y);
+            break;
         case "S":
             // candle
             entity = new Singer(x, y, Direction.Down);

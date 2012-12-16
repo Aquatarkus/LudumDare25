@@ -5,6 +5,9 @@
 // {} - doors
 // <>^v - fans
 // V - Villain
+// S - singers
+// + - priests
+//
 
 var Baptism = [
 "########################",

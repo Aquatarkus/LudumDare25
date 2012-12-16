@@ -143,6 +143,17 @@ var Priest = function(x, y)
 Priest.prototype = new Entity();
 Priest.prototype.constructor = Priest;
 
+var Cardinal = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Priest";
+    this.clearTile();
+    var bitmap = new createjs.Bitmap("images/tiles/cardinal_still.png");
+    this.addChild(bitmap);
+};
+Cardinal.prototype = new Entity();
+Cardinal.prototype.constructor = Cardinal;
+
 var Jesus = function(x, y)
 {
     Entity.call(this, x, y);
