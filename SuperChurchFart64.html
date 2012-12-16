@@ -7,7 +7,7 @@
         user-select: none;
         background-color:#000000;
         width: 640px;
-        height: 480px;
+        height: 640px;
     }
 </style>
 </head>
@@ -17,7 +17,7 @@
 <div id="gameDiv">
     <canvas id="gameCanvas"
             width="640"
-            height="480"></canvas>
+            height="640"></canvas>
 </div>
 <script src="js/easeljs-0.5.0.min.js" type="text/javascript"></script>
 <script src="js/Globals.js" type="text/javascript"></script>
@@ -49,17 +49,27 @@
         this.stage = new createjs.Stage(this.canvas);
         var rowsLevel1 = [
             "##########################",
-            "#           Tp          L#",
-            "#R                      U#",
-            "#   [PPPPPPPFFPPPPPPP]   #",
-            "#      b        g       F#",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#        D        M      #",
+            "#                        #",
+            "#                        #",
+            "#                        #",
+            "#                        #",
+            "#                        #",
+            "#                        #",
             "#   [PPPPPPP  PPPPPPP]   #",
             "#                        #",
             "#   [PPPPPPP  PPPPPPP]   #",
-            "#U          X            #",
-            "#U          X            #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#   [PPPPPPP  PPPPPPP]   #",
+            "#                        #",
+            "#                        #",
             "############{}############"
         ];
 
@@ -90,12 +100,13 @@
         
         var bigOldFart = new Fart();
         bigOldFart.vX = 50;
+        bigOldFart.vY = 25;
         bigOldFart.setTileX(0);
         bigOldFart.setTileY(4);
         
         addEntity(bigOldFart);
 
-        //start game timer
+        // start game timer
         createjs.Ticker.addListener(gameController);
 
         gameController.stage.update();
