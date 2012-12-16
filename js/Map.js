@@ -6,10 +6,6 @@ var Map = function(name, stage, rows)
     this.stage = stage;
     this.rows = rows;
 
-    this.rowCount = this.rows.length;
-    this.columnCount = this.rows[0].length;
-
-    this.entities = [];
     this.parseRows();
 };
 
@@ -26,6 +22,8 @@ Map.prototype.addEntity = function(entity)
 
 Map.prototype.parseRows = function()
 {
+    this.rowCount = this.rows.length;
+    this.columnCount = this.rows[0].length;
     this.entities = [];
     
     for (var x = 0; x < this.columnCount; x++)

@@ -19,24 +19,37 @@
             width="640"
             height="640"></canvas>
 </div>
+<form>
+    <select id="levelSelect" onchange="onLevelSelectChanged(this)">
+
+    </select>
+</form>
 <script src="js/easeljs-0.5.0.min.js" type="text/javascript"></script>
 <script src="js/Globals.js" type="text/javascript"></script>
+<script src="js/Levels.js"></script>
 <script src="js/Entity.js" type="text/javascript"></script>
 <script src="js/Fart.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
 <script>
+
+    var levelSelect = document.getElementById("levelSelect");
+    for (var i in Levels)
+    {
+        levelSelect.add(new Option(i, i), null);
+    }
+
     var gameController =
     {
         canvas: null,
         stage: null,
-        levels: [],
         currentMap: null,
 		objectsToDelete: []
     };
     
-    gameController.loadLevel = function(index) {
+    gameController.loadLevel = function(index)
+    {
         // Choose the current map.
-        this.currentMap = this.levels[index];
+        this.currentMap = new Map(""+index, this.stage, Levels[index]);
         
         // Reset everything for the new map.
         this.stage.clear();
@@ -53,37 +66,16 @@
 		gameController.objectsToDelete.push(newEntity);
 	};
 
+    function onLevelSelectChanged(select)
+    {
+        var selectedIndex = select.selectedIndex;
+        gameController.loadLevel(selectedIndex);
+    }
+
     gameController.init = function()
     {
         this.canvas = document.getElementById("gameCanvas");
         this.stage = new createjs.Stage(this.canvas);
-        var rowsLevel1 = [
-            "##########################",
-            "#                        #",
-            "#                        #",
-            "#                        #",
-            "#                        #",
-            "#                        #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#   [PPPPPPP  PPPPPPP]   #",
-            "#                        #",
-            "#                        #",
-            "############{}############"
-        ];
-
-        this.levels.push(new Map("Level 1", this.stage, rowsLevel1));
         this.loadLevel(0);
     };
 
