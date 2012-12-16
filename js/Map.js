@@ -11,7 +11,66 @@ var Map = function(name, stage, rows)
 
     this.entities = [];
     this.distanceEntities = [];
-    this.parseRows();
+	this.safeZones = [];
+	this.targets = [];
+	this.player = null;
+};
+
+Map.prototype.entityHit = function(entity) {
+	
+	if (entity.isTarget) {
+		// As soon as the player hits any target, don't let them move until everything resolves
+		this.player.isImmobile = true;
+		
+		for (var i = 0; i < this.targets.length; i++) {
+			if (this.targets[i] === entity) {
+				this.targets.splice(i, 1);
+				break;
+			}
+		}
+		
+		var success = false;
+	
+		for (var i = 0; i < this.safeZones.length; i++) {
+			var safeZone = this.safeZones[i];
+			
+			if ((safeZone.getTileX() == this.player.getTileX()) && (safeZone.getTileY() == this.player.getTileY())) {
+				success = true;
+				
+				break;
+			}
+		}
+		
+		if (success) {
+			if (this.targets.length == 0) {
+				this.setVictory();
+			}
+		} else {
+			this.setDefeat();
+		}
+	}
+};
+
+Map.prototype.setVictory = function() {
+	var message = new createjs.Text("VICTORY!\n\nPress any key to continue...", "bold 24px Arial", "#22AA22");
+	message.maxWidth = 800;
+	message.textAlign = "center";
+	message.x = 400;
+	message.y = 300;
+	this.stage.addChild(message);
+	
+	this.player.isVictorious = true;
+};
+
+Map.prototype.setDefeat = function() {
+	var message = new createjs.Text("DEFEATED!\n\nYou must proceed to a safe zone, such as a doorway, before the fart reaches your target!\n\nPress any key to continue...", "bold 24px Arial", "#AA2222");
+	message.maxWidth = 800;
+	message.textAlign = "center";
+	message.x = 400;
+	message.y = 300;
+	this.stage.addChild(message);
+	
+	this.player.isDefeated = true;
 };
 
 Map.prototype.removeEntity = function(entity)
@@ -44,6 +103,17 @@ Map.prototype.addEntity = function(entity)
         {
             this.distanceEntities.push(entity);
         }
+		if (entity.isSafeZone)
+		{
+			this.safeZones.push(entity);
+		}
+		if (entity.isTarget)
+		{
+			this.targets.push(entity);
+		}
+		if (entity instanceof Player) {
+			this.player = entity;
+		}
     }
 };
 
@@ -140,6 +210,7 @@ Map.prototype.entityForCharacter = function(character, x, y)
         case "V":
             // villain
             entity = player;
+			player.resetState();
             player.setTileX(x);
             player.setTileY(y);
             break;

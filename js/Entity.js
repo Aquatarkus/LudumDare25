@@ -15,6 +15,8 @@ Entity.prototype.initialize = function(x, y, direction)
     this.setTileY(y);
     this.direction = direction;
     this.caresAboutDistance = false;
+	this.isSafeZone = false;
+	this.isTarget = false;
 
     this.shape = new createjs.Shape();
     this.addChild(this.shape);
@@ -120,6 +122,7 @@ var Door = function(x, y, direction)
     Entity.call(this, x, y, direction);
     this.name = "Door";
     this.setColor("#E2CACA", "#A67B5B");
+	this.isSafeZone = true;
 };
 Door.prototype = new Entity();
 Door.prototype.constructor = Door;
@@ -137,6 +140,7 @@ var Priest = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Priest";
+	this.isTarget = true;
     this.clearTile();
     var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
     this.addChild(bitmap);

@@ -63,16 +63,39 @@
         canvas: null,
         stage: null,
         currentMap: null,
-		objectsToDelete: []
+		objectsToDelete: [],
+		currentLevelIndex: 0
     };
+	
+	gameController.loadNextLevel = function() {
+		this.loadLevelByIndex(this.currentLevelIndex + 1);
+	};
+	
+	gameController.reloadLevel = function() {
+		this.loadLevelByIndex(this.currentLevelIndex);
+	};
+	
+	gameController.loadLevelByIndex = function(index) {
+		this.currentLevelIndex = index;
+		// Choose the current map.
+        this.loadLevel(new Map(index, this.stage, LevelsByIndex[index].map));
+	};
+	gameController.loadLevelByName = function(name) {
+		var levelIndex = 0;
+        for (var levelName in Levels)
+        {
+            if (levelName == name) {
+				this.loadLevelByIndex(levelIndex);
+				break;
+			}
+			levelIndex++;
+        }
+	};
     
-    gameController.loadLevel = function(name)
+    gameController.loadLevel = function(map)
     {
-        // Choose the current map.
-        var level = Levels[name];
-        this.currentMap = new Map(name, this.stage, level.map);
-        descriptionHeader.innerHTML = level.description;
-        
+        this.currentMap = map;
+		descriptionHeader.innerHTML = map.description;
         // Reset everything for the new map.
         this.stage.removeAllChildren();
         this.currentMap.parseRows();
@@ -108,7 +131,7 @@
     {
         var selectedIndex = select.selectedIndex;
         var selectedValue = select.options[selectedIndex].value;
-        gameController.loadLevel(selectedValue);
+        gameController.loadLevelByName(selectedValue);
     }
 
     gameController.init = function()
@@ -116,13 +139,7 @@
         this.canvas = document.getElementById("gameCanvas");
         this.stage = new createjs.Stage(this.canvas);
 
-        var firstLevel;
-        for (var levelName in Levels)
-        {
-            firstLevel = levelName;
-            break;
-        }
-        this.loadLevel(firstLevel);
+        this.loadLevelByIndex(0);
     };
 
     gameController.tick = function()
