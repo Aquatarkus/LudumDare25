@@ -23,6 +23,13 @@
 		g.endFill();
 	};
     
+    Fart.prototype.getTileX = function() {
+        return Math.round(this.x / TileWidth);
+    };
+    
+    Fart.prototype.getTileY = function() {
+        return Math.round(this.y / TileHeight);
+    };
 	
 	Fart.prototype.tick = function() {
     
