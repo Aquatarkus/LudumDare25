@@ -163,6 +163,7 @@ var Jesus = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Jesus";
+    this.isTarget = true;
     this.clearTile();
     var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
     this.addChild(bitmap);
