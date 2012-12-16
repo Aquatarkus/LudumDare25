@@ -85,8 +85,13 @@
                 var entityList = getEntityList(this.getTileX(), this.getTileY());
                 
                 entityList.push(this);
+                hasMoved = false;
+                this.vX = 0;
+                this.vY = 0;
             }
-		} else {
+		}
+        
+        if (!hasMoved) {
 			var newAlpha = this.alpha - (interval / this.decay);
 			
 			if (newAlpha <= 0) {
