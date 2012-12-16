@@ -99,7 +99,7 @@
         var result = true;
         
         for(var i = 0; i < entityList.length; i++) {
-            if (entityList[i].collides && !(entityList[i] instanceof Fart)) {
+            if (entityList[i].collides && !(entityList[i] instanceof Fart) && !(entityList[i] instanceof Player)) {
                 this.vX = 0;
                 this.vY = 0;
                 result = false;

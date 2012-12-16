@@ -11,8 +11,13 @@ var Direction =
     Right : "right"
 };
 
-var MovementKeys =
-{
+var Keys = {
+    // Action
+    Space: 32,
+    Shift: 16,
+    X: 88,
+
+    // Movement
     Up: 38,
     Left: 37,
     Down: 40,
