@@ -3,7 +3,6 @@
 var Fart = function(x, y, direction)
 {
     Entity.call(this, x, y, direction);
-    this.caresAboutDistance = true;
 };
 Fart.prototype = new CollidableEntity();
 Fart.prototype.constructor = Fart;

@@ -4,3 +4,6 @@
 [submodule "EaselJS"]
 	path = EaselJS
 	url = https://github.com/CreateJS/EaselJS.git
+[submodule "SoundJS"]
+	path = SoundJS
+	url = https://github.com/CreateJS/SoundJS.git
