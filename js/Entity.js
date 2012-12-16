@@ -42,3 +42,38 @@ Entity.prototype.getTileY = function()
 {
     return this.y / TileHeight;
 };
+
+var Obstacle = function(x, y, direction)
+{
+    Entity.call(this, x, y, direction);
+};
+Obstacle.prototype = new Entity();
+Obstacle.prototype.constructor = Obstacle;
+Obstacle.prototype.collides = function(direction)
+{
+    return true;
+};
+
+var Wall = function(x, y)
+{
+    Obstacle.call(this, x, y);
+    this.name = "Wall";
+};
+Wall.prototype = new Obstacle();
+Wall.prototype.constructor = Wall;
+
+var Pew = function(x, y, direction)
+{
+    Obstacle.call(this, x, y, direction);
+    this.name="Pew";
+};
+Pew.prototype = new Obstacle();
+Pew.prototype.constructor = Pew;
+
+var PewEnd = function(x, y, direction)
+{
+    Obstacle.call(this, x, y, direction);
+    this.name = "PewEnd";
+};
+PewEnd.prototype = new Obstacle();
+PewEnd.prototype.constructor = PewEnd;
