@@ -52,7 +52,7 @@
         this.currentMap = new Map(""+index, this.stage, Levels[index]);
         
         // Reset everything for the new map.
-        this.stage.clear();
+        this.stage.removeAllChildren();
         this.currentMap.parseRows();
         this.objectsToDelete = [];
     };
