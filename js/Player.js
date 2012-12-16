@@ -36,7 +36,7 @@ Player.prototype.fart = function() {
         return;
     }
 
-    var fart = new Fart(this.x, this.y);
+    var fart = new Fart(this.getTileX(), this.getTileY());
     var fartDirection = { x: 0, y: 0 };
 
     // fart launches opposite player facing
@@ -61,8 +61,8 @@ Player.prototype.fart = function() {
     fart.vX = fartDirection.x * this.fartSpeed;
     fart.vY = fartDirection.y * this.fartSpeed;
     // hack: should get from tile function 
-    fart.x = this.x + TileWidth / 2;
-    fart.y = this.y + TileHeight / 2;
+    fart.x = this.getTileX() * TileWidth;
+    fart.y = this.getTileY() * TileHeight;
 
     addEntity(fart);
 };
