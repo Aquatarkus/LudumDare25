@@ -87,7 +87,9 @@ var Pew = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
     this.name="Pew";
-    this.setColor("#c04000", "#A05220");
+    this.clearTile();
+    var bitmap = new createjs.Bitmap("images/tiles/pew-interior.png");
+    this.addChild(bitmap);
 };
 Pew.prototype = new Obstacle();
 Pew.prototype.constructor = Pew;
@@ -96,7 +98,18 @@ var PewEnd = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
     this.name = "PewEnd";
-    this.setColor("#DAA520", "#804618");
+    this.clearTile();
+    var imageURL;
+    if (direction == Direction.Left)
+    {
+        imageURL = "images/tiles/pew-end-left.png";
+    }
+    else
+    {
+        imageURL = "images/tiles/pew-end-right.png";
+    }
+    var bitmap = new createjs.Bitmap(imageURL);
+    this.addChild(bitmap);
 };
 PewEnd.prototype = new Obstacle();
 PewEnd.prototype.constructor = PewEnd;
@@ -129,6 +142,17 @@ var Priest = function(x, y)
 };
 Priest.prototype = new Entity();
 Priest.prototype.constructor = Priest;
+
+var Jesus = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Jesus";
+    this.clearTile();
+    var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
+    this.addChild(bitmap);
+};
+Jesus.prototype = new Entity();
+Jesus.prototype.constructor = Jesus;
 
 var Singer = function(x, y)
 {
