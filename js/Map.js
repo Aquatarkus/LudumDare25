@@ -6,7 +6,28 @@ var Map = function(name, stage, rows)
     this.stage = stage;
     this.rows = rows;
 
+    this.rowCount = this.rows.length;
+    this.columnCount = this.rows[0].length;
+
+    this.entities = [];
     this.parseRows();
+};
+
+Map.prototype.removeEntity = function(entity)
+{
+    var x = entity.getTileX();
+    var y = entity.getTileY();
+    if (this.entities[x]) {
+        if (this.entities[x][y]) {
+            var entityList = this.entities[x][y];
+            for(var i = 0; i < entityList.length; i++) {
+                if (entityList[i] === entity) {
+                    entityList.splice(i, 1);
+                    break;
+                }
+            }
+        }
+    }
 };
 
 Map.prototype.addEntity = function(entity)
@@ -15,15 +36,17 @@ Map.prototype.addEntity = function(entity)
     {
         var x = entity.getTileX();
         var y = entity.getTileY();
-        this.entities[x][y].push(entity);
+        if (this.entities[x]) {
+            if (this.entities[x][y]) {
+                this.entities[x][y].push(entity);
+            }
+        }
         this.stage.addChild(entity);
     }
 };
 
 Map.prototype.parseRows = function()
 {
-    this.rowCount = this.rows.length;
-    this.columnCount = this.rows[0].length;
     this.entities = [];
     
     for (var x = 0; x < this.columnCount; x++)
