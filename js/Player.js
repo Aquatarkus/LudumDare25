@@ -70,6 +70,9 @@ Player.prototype.fart = function() {
 Player.prototype.handleKeyDown = function(evt) {
     // if movement controls, prevent default
     switch (evt.keyCode) {
+        case Keys.Space:
+        case Keys.Shift:
+        case Keys.X:
         case Keys.Up:
         case Keys.Down:
         case Keys.Left:
