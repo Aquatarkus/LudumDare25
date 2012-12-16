@@ -10,6 +10,7 @@ var Map = function(name, stage, rows)
     this.columnCount = this.rows[0].length;
 
     this.entities = [];
+    this.distanceEntities = [];
     this.parseRows();
 };
 
@@ -141,6 +142,22 @@ Map.prototype.entityForCharacter = function(character, x, y)
             break;
         case "J":
             entity = new Jesus(x, y, Direction.Down);
+            break;
+        case ">":
+            entity = new Fan(x, y, Direction.Right);
+            this.distanceEntities.push(entity);
+            break;
+        case "<":
+            entity = new Fan(x, y, Direction.Left);
+            this.distanceEntities.push(entity);
+            break;
+        case "^":
+            entity = new Fan(x, y, Direction.Up);
+            this.distanceEntities.push(entity);
+            break;
+        case "v":
+            entity = new Fan(x, y, Direction.Down);
+            this.distanceEntities.push(entity);
             break;
         default:
             console.log("Unknown map character: "+character);
