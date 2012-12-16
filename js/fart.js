@@ -1,47 +1,26 @@
 
-(function(game, createjs) {
 
-	function Fart() {
-		this.initialize();
-	}
-
-	Fart.prototype = new createjs.Container();
-	
-	Fart.prototype.Container_initialize = Fart.prototype.initialize;
-
-	Fart.prototype.initialize = function() {
-		this.Container_initialize();
-		
-		this.shape = new createjs.Shape();
-		this.makeShape();
-		this.alpha = 1.0;
-		
-		this.addChild(this.shape);
-	};
+    var Fart = function(x, y, direction)
+    {
+        Entity.call(this, x, y, direction);
+    };
+    Fart.prototype = new Entity();
+    Fart.prototype.constructor = Fart;
 	
 	Fart.prototype.stationary = false;
 	Fart.prototype.vX = 0;
 	Fart.prototype.vY = 0;
 	Fart.prototype.spawnRate = 200;
 	Fart.prototype.lastSpawned = 0;
-	Fart.prototype.fartlings = [];
 	Fart.prototype.decay = 4000;
-	
-	Fart.prototype.getTileX = function() {
-		return Math.round(this.x / 24);
-	};
-	
-	Fart.prototype.getTileY = function() {
-		return Math.round(this.y / 24);
-	};
-	
-	Fart.prototype.setTileX = function(tileX) {
-		this.x = tileX * 24;
-	};
-	
-	Fart.prototype.setTileY = function(tileY) {
-		this.y = tileY * 24;
-	};
+    
+    Fart.prototype.initShape = function() {
+        this.shape = new createjs.Shape();
+        this.makeShape();
+        this.alpha = 1.0;
+        
+        this.addChild(this.shape);
+    };
 	
 	Fart.prototype.makeShape = function() {
 		var g = this.shape.graphics;
@@ -78,7 +57,7 @@
 			if (ticks - this.lastSpawned > this.spawnRate) {
 				this.lastSpawned = ticks;
 				
-				var newFartling = new game.Fart();
+				var newFartling = new Fart();
 				newFartling.stationary = true;
 				newFartling.alpha = 0.5;
 				newFartling.x = prevX;
@@ -98,6 +77,3 @@
 			}
 		}
 	};
-
-	game.Fart = Fart;
-}(game, createjs));

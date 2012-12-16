@@ -14,7 +14,12 @@ Entity.prototype.initialize = function(x, y, direction)
     this.x = x;
     this.y = y;
     this.direction = direction;
+    
+    this.initShape();
+}
 
+Entity.prototype.initShape = function()
+{
     this.shape = new createjs.Shape();
     this.addChild(this.shape);
 
@@ -22,7 +27,7 @@ Entity.prototype.initialize = function(x, y, direction)
     this.fillColor = "#00F";
 
     this.makeShape();
-}
+};
 
 Entity.prototype.makeShape = function()
 {
@@ -41,4 +46,13 @@ Entity.prototype.getTileX = function()
 Entity.prototype.getTileY = function()
 {
     return this.y / TileHeight;
+};
+
+
+Entity.prototype.setTileX = function(tileX) {
+    this.x = tileX * TileWidth;
+};
+
+Entity.prototype.setTileY = function(tileY) {
+    this.y = tileY * TileHeight;
 };
