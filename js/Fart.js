@@ -143,6 +143,7 @@ Fart.prototype.handleCollisions = function(entityList) {
             this.vY = 0;
             result = false;
         }
+		gameController.currentMap.entityHit(entityList[i]);
     }
 
     return result;

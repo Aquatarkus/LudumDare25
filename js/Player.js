@@ -9,6 +9,8 @@ var Player = function(x, y, spriteSheet) {
     // start input handling
     window.addEventListener("keydown", this.handleKeyDown, true);
     window.addEventListener("keyup", this.handleKeyUp, true);
+	
+	this.resetState();
 };
 Player.prototype = new CollidableEntity();
 Player.prototype.constructor = Player;
@@ -21,7 +23,11 @@ Player.prototype.targetPosition = { x: 0, y: 0 };
 Player.prototype.moveStartTime = null;
 Player.prototype.moveTime = 300.0;
 Player.prototype.fartsRemaining = 64;
-Player.prototype.fartSpeed = 50.0;
+Player.prototype.fartSpeed = 120.0;
+
+Player.prototype.isDefeated = false;
+Player.prototype.isVictorious = false;
+Player.prototype.isImmobile = false;
 
 Player.prototype.keyboardState = {
     isUpHeld: false,
@@ -29,6 +35,12 @@ Player.prototype.keyboardState = {
     isDownHeld: false,
     isRightHeld: false,
     isFartButtonHeld: false
+};
+
+Player.prototype.resetState = function() {
+	this.isDefeated = false;
+	this.isVictorious = false;
+	this.isImmobile = false;
 };
 
 Player.prototype.fart = function() {
@@ -146,6 +158,12 @@ Player.prototype.handleKeyUp = function(evt) {
 };
 
 Player.prototype.tick = function() {
+	if (this.isImmobile) {
+		this.keyboardState.isUpHeld = false;
+		this.keyboardState.isDownHeld = false;
+		this.keyboardState.isLeftHeld = false;
+		this.keyboardState.isRightHeld = false;
+	}
     // if in motion, update position for drawing
     var wasMoving = this.isMoving;
     if (this.isMoving) {
@@ -175,7 +193,14 @@ Player.prototype.tick = function() {
 
     if (!this.isMoving) {
         if (this.keyboardState.isFartButtonHeld) {
-            this.fart();
+			if (this.isDefeated) {
+				gameController.reloadLevel();
+			} else if (this.isVictorious) {
+				gameController.loadNextLevel();
+			} else {
+				this.fart();
+			}
+			
             return;
         }
 
