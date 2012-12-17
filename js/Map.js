@@ -15,6 +15,7 @@ var Map = function(name, stage, rows)
 	this.safeZones = [];
 	this.targets = [];
 	this.player = null;
+    this.npcsByName = {};
 };
 
 Map.prototype.entityHit = function(entity) {
@@ -109,7 +110,8 @@ Map.prototype.addEntity = function(entity)
 		{
 			this.targets.push(entity);
 		}
-		if (entity instanceof Player) {
+		if (entity instanceof Player)
+        {
 			this.player = entity;
 		}
     }
@@ -238,11 +240,137 @@ Map.prototype.entityForCharacter = function(character, x, y)
             entity = new Fan(x, y, Direction.Down);
             break;
         default:
-            console.log("Unknown map character: "+character);
+            // try an NPC patroller
+            if (!this.addNPCWithCharacter(character, x, y));
+            {
+                console.log("Unknown map character: "+character);
+            }
             break;
     }
     return entity;
 };
+
+Map.prototype.addNPC = function(npc)
+{
+    if (npc.name && npc.startTile && npc.endTile)
+    {
+        var npcDefinition = NPCDefinitionForName(npc.name);
+        var route =
+        {
+            startX: npc.startTile.x * TileWidth,
+            startY: npc.startTile.y * TileHeight,
+            endX: npc.endTile.x * TileWidth,
+            endY: npc.endTile.y * TileHeight,
+            // pause at each endpoint
+            pauseTime: npcDefinition.pauseTime,
+            moveTime: npcDefinition.moveTime
+        };
+        var npcEntity = new NPC(npc.startTile.x,
+                                npc.startTile.y,
+                                npcDefinition.spriteSheet,
+                                route);
+        this.addEntity(npcEntity);
+    }
+}
+
+Map.prototype.addNPCWithCharacter = function(character, x, y)
+{
+    var isNPC = false;
+    var npcDefinition = NPCDefinitionForCharacter(character);
+    if (npcDefinition)
+    {
+        isNPC = true;
+        if (character === npcDefinition.startCharacter)
+        {
+            this.addNPCStart(npcDefinition, x, y);
+        }
+        // to else or not to else, that is the question
+        if (character === npcDefinition.endCharacter)
+        {
+            this.addNPCEnd(npcDefinition, x, y);
+        }
+    }
+    return isNPC;
+};
+
+
+Map.prototype.startNPC = function(character, x, y)
+{
+    var route = {
+        character:character,
+        startTile:{x:x, y:y},
+        endTile:{x:0,y:0}
+    };
+};
+
+Map.prototype.addNPCStart = function(npcDefinition, x, y)
+{
+    var npcs = this.npcsForDefinition(npcDefinition);
+    var npc = null;
+    for (var i in npcs)
+    {
+        var oldNPC = npcs[i];
+        if (oldNPC.endTile
+            && !oldNPC.startTile
+            && (oldNPC.endTile.x == x
+                || oldNPC.endTile.y == y))
+        {
+            oldNPC.startTile = {x:x, y:y};
+            npc = oldNPC;
+            break;
+        }
+    }
+    if (!npc)
+    {
+        npc = {name : npcDefinition.name, startTile : {x:x, y:y}};
+        npcs.push(npc);
+    }
+    else if (npc.startTile && npc.endTile)
+    {
+        this.addNPC(npc);
+    }
+};
+
+Map.prototype.addNPCEnd = function(npcDefinition, x, y)
+{
+    var npcs = this.npcsForDefinition(npcDefinition);
+    var npc = null;
+    for (var i in npcs)
+    {
+        var oldNPC = npcs[i];
+        if (oldNPC.startTile
+            && !oldNPC.endTile
+            && (oldNPC.startTile.x == x
+            || oldNPC.startTile.y == y))
+        {
+            oldNPC.endTile = {x:x, y:y};
+            npc = oldNPC;
+            break;
+        }
+    }
+    if (!npc)
+    {
+        npc = {name : npcDefinition.name, startTile : {x:x, y:y}};
+        npcs.push(npc);
+    }
+    else if (npc.startTile && npc.endTile)
+    {
+        this.addNPC(npc);
+    }
+};
+
+Map.prototype.npcsForDefinition = function(npcDefinition)
+{
+    var name = npcDefinition.name;
+    var npcs = this.npcsByName[name];
+    if (!npcs)
+    {
+        var npc =
+        npcs = [];
+        this.npcsByName[name] = npcs;
+    }
+    return npcs;
+}
 
 Map.prototype.printRows = function()
 {

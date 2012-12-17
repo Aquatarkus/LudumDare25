@@ -11,22 +11,25 @@
 // G - groom
 // g - grandpa
 // S - singer
+// q Q - patrol
+// n N - patrol
+// o O - patrol
 
 var Baptism = {
     map :[
 "########################",
 "#>        + v          #",
-"#        B  b G        #",
-"#                      #",
+"# n      B  b G    hh  #",
+"#                  HH  #",
 "#   SSSSSS    SSSSSS   #",
+"#                    h #",
+"#  [PPPPPP]  [PPPPPP]  #",
+"#   o    O             #",
+"# N[PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPP]  [PPPPPP]H #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",

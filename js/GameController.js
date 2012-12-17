@@ -126,28 +126,6 @@ function init()
     window.removeEventListener("keydown", init, true);
 	gameController.init();
 
-	addEntity(new NPC(2, 2, Content.getSpriteSheet("HeatherTall.png"), 
-		{ startX: 2 * TileWidth,
-		startY: 2 * TileHeight,
-		endX: 16 * TileWidth,
-		endY: 2 * TileHeight, 
-		pauseTime: 1000.0, 
-		moveTime: 400.0 }));
-	addEntity(new NPC(2, 3, Content.getSpriteSheet("M_Short_Grandpa.png"), 
-		{ startX: 2 * TileWidth,
-		startY: 3 * TileHeight, 
-		endX: 2 * TileWidth, 
-		endY: 5 * TileHeight, 
-		pauseTime: 500.0, 
-		moveTime: 1000.0 }));
-	addEntity(new NPC(4, 7, Content.getSpriteSheet("FlowerGirlToo.png"), 
-		{ startX: 3 * TileWidth,
-		startY: 7 * TileHeight,
-		endX: 8 * TileWidth,
-		endY: 7 * TileHeight,
-		pauseTime: 0.0,
-		moveTime: 10.0 }));
-
 	//Hide title screen, show game, and start audio.
 	document.getElementById('titleScreen').style.display = 'none';
 	document.getElementById('gameDiv').style.display = 'block';
