@@ -12,6 +12,7 @@
 // g - grandpa
 // S - singer
 // + - Priest
+// I = Invisible Walls
 
 var Baptism = {
     map :[
@@ -32,8 +33,8 @@ var Baptism = {
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#          V           #",
-"###########{}###########"],
-
+"###########{}###########",
+"           II           "],
     description : "The Prime Minister's baby is the target.  Execute CODE BROWN and escape before anyone realizes it was you!"
 };
 
@@ -56,7 +57,8 @@ var Wedding = {
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#          V           #",
-"###########{}###########"],
+"###########{}###########",
+"           II           "],
     description : "Fart on the bride and the groom to taint the marriage!"
 };
 
@@ -79,7 +81,8 @@ var Funeral = {
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
 "#          V           #",
-"###########{}###########"],
+"###########{}###########",
+"           II           "],
     description : "Fart in the casket to ruin his afterlife!"
 };
 
@@ -102,7 +105,8 @@ var PapalConclave = {
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#c         V          c#",
-"###########{}###########"],
+"###########{}###########",
+"           II           "],
     description : "Fart on the Cardinals!"
 };
 
@@ -125,7 +129,8 @@ var FartOnJesus = {
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#c         V          c#",
-"###########{}###########"],
+"###########{}###########",
+"           II           "],
     description : "Fart on Jesus!"
 };
 
