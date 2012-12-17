@@ -29,6 +29,8 @@ Player.prototype.isDefeated = false;
 Player.prototype.isVictorious = false;
 Player.prototype.isImmobile = false;
 
+Player.prototype.fartInitiated = false;
+
 Player.prototype.keyboardState = {
     isUpHeld: false,
     isLeftHeld: false,
@@ -41,6 +43,7 @@ Player.prototype.resetState = function() {
 	this.isDefeated = false;
 	this.isVictorious = false;
 	this.isImmobile = false;
+    this.fartInitiated = false;
 };
 
 Player.prototype.fart = function() {
@@ -133,6 +136,7 @@ Player.prototype.handleKeyUp = function(evt) {
         case Keys.Shift:
         case Keys.X:
             player.keyboardState.isFartButtonHeld = false;
+            player.fartInitiated = false;
             break;
 
         case Keys.Up:
@@ -193,15 +197,18 @@ Player.prototype.tick = function() {
 
     if (!this.isMoving) {
         if (this.keyboardState.isFartButtonHeld) {
-			if (this.isDefeated) {
-				gameController.reloadLevel();
-			} else if (this.isVictorious) {
-				gameController.loadNextLevel();
-			} else {
-				this.fart();
-			}
-			
-            return;
+            if (!this.fartInitiated) {
+                this.fartInitiated = true;
+                if (this.isDefeated) {
+                    gameController.reloadLevel();
+                } else if (this.isVictorious) {
+                    gameController.loadNextLevel();
+                } else {
+                    this.fart();
+                }
+                
+                return;
+           }
         }
 
         var delta = { x: 0, y: 0 };
