@@ -109,30 +109,6 @@ var PapalConclave = {
     description : "Fart on the Cardinals!"
 };
 
-var FartOnJesus = {
-    map : [
-"########################",
-"#c         J          c#",
-"#    g                 #",
-"#                      #",
-"#                      #",
-"#    G                 #",
-"#  [PPPPPP]F [PPPPPP]  #",
-"#           f          #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#g       G             #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]fF[PPPPPP]  #",
-"#                      #",
-"#c         V          c#",
-"###########{}###########",
-"           II           "],
-    description : "Fart on Jesus!"
-};
-
 var Levels =
 {
     Baptism: Baptism,
