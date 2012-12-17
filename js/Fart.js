@@ -99,10 +99,6 @@ Fart.prototype.tick = function() {
                 addEntity(newFartling);
             }
         } else {
-            var entityList = getEntityList(this.getTileX(), this.getTileY());
-            if (entityList) {
-                entityList.push(this);
-            }
             hasMoved = false;
 			
             this.vX = 0;
