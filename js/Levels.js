@@ -1,3 +1,10 @@
+var Levels =
+{
+    Baptism: Baptism,
+    Wedding : Wedding,
+    Funeral : Funeral,
+    PapalConclave: PapalConclave};
+
 // Levels.js
 
 // #### - walls
@@ -34,17 +41,17 @@ var Baptism = {
 "#          V           #",
 "###########{}###########",
 "           II           "],
-    description : "The Prime Minister's baby is the target.  Execute CODE BROWN and escape before anyone realizes it was you!"
+    description : "The Prime Minister's baby is the target.  Execute a CODE BROWN and escape before anyone realizes it was you!"
 };
 
 var Wedding = {
     map : [
 "########################",
-"#      n   TT+         #",
+"#      g   TT+         #",
 "#          BG         <#",
 "#>                    ^#",
 "#                      #",
-"#      N     f     F   #",
+"#      G     f     F   #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#^                    <#",
 "#  [PPPPPP]  [PPPPPP]  #",
@@ -58,7 +65,7 @@ var Wedding = {
 "#          V           #",
 "###########{}###########",
 "           II           "],
-    description : "Fart on the bride and the groom to taint the marriage!"
+    description : "Fart on the bride to taint the marriage."
 };
 
 var Funeral = {
@@ -67,22 +74,22 @@ var Funeral = {
 "#          TT          #",
 "#          |+          #",
 "#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
+"#                      #",
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
+"#                      #",
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
-"#  [PPPPPPP  PPPPPPP]  #",
+"#                      #",
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
 "#          V           #",
 "###########{}###########",
 "           II           "],
-    description : "Fart in the casket to ruin his afterlife!"
+    description : "Fart in the casket to ruin their afterlife."
 };
 
 var PapalConclave = {
@@ -90,19 +97,19 @@ var PapalConclave = {
 "########################",
 "#c       c TT c       c#",
 "#          TT          #",
-"#          C           #",
-"#                      #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  +++     C      +++  #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
+"#    +           +     #",
+"#    +           +     #",
+"#      +       +       #",
+"#      +       +       #",
+"#        +    +        #",
+"#        +    +        #",
 "#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
+"#                hH    #",
+"#                ++    #",
+"#      +               #",
 "#c         V          c#",
 "###########{}###########",
 "           II           "],
@@ -114,4 +121,5 @@ var Levels =
     Baptism: Baptism,
     Wedding : Wedding,
     Funeral : Funeral,
-    PapalConclave: PapalConclave};
+    PapalConclave: PapalConclave
+};
