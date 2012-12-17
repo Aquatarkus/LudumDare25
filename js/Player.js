@@ -46,7 +46,6 @@ Player.prototype.resetState = function() {
 	this.isDefeated = false;
 	this.isVictorious = false;
 	this.isImmobile = false;
-    this.fartInitiated = false;
 };
 
 Player.prototype.fart = function() {
@@ -144,6 +143,7 @@ Player.prototype.handleKeyUp = function(evt) {
         case Keys.X:
             player.keyboardState.isFartButtonHeld = false;
             player.fartInitiated = false;
+            console.log("fart uninit");
             break;
 
         case Keys.Up:
@@ -174,6 +174,8 @@ Player.prototype.tick = function() {
 		this.keyboardState.isDownHeld = false;
 		this.keyboardState.isLeftHeld = false;
 		this.keyboardState.isRightHeld = false;
+        
+        
 	}
     // if in motion, update position for drawing
     var wasMoving = this.isMoving;
@@ -205,12 +207,9 @@ Player.prototype.tick = function() {
     if (!this.isMoving) {
         if (this.keyboardState.isFartButtonHeld) {
             if (!this.fartInitiated) {
+                console.log("fart init");
                 this.fartInitiated = true;
-                if (this.isDefeated) {
-                    gameController.reloadLevel();
-                } else if (this.isVictorious) {
-                    gameController.loadNextLevel();
-                } else {
+                if (!gameController.gameMenuAction()) {
                     this.fart();
                 }
                 
