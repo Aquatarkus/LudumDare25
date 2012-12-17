@@ -27,7 +27,7 @@ NPCDefinitions = {
     },
     Elvis :
     {
-        spriteSheet : Content.getSpriteSheet("Elvis.png"),
+        spriteSheet : Content.getSpriteSheet("M_Elvis.png"),
         moveTime : 400.0,
         pauseTime : 1000.0,
         startCharacter : "e",

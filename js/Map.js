@@ -251,7 +251,8 @@ Map.prototype.entityForCharacter = function(character, x, y)
 			break;
         default:
             // try an NPC patroller
-            if (!this.addNPCWithCharacter(character, x, y));
+            var isNPC = this.addNPCWithCharacter(character, x, y);
+            if (isNPC == false)
             {
                 console.log("Unknown map character: "+character);
             }
