@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Super Church Fart 64</title>
+<title>The Cropduster</title>
 <style type="text/css">
     #titleScreen h1 {
       font-variant: small-caps;
@@ -10,12 +10,24 @@
     #gameDiv
     {
         user-select: none;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 110px;
+    }
+    #gameBackground
+    {
         background-color:#7f7f7f;
         width: 768px;
         height: 576px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 110px;
+    }
+    #levelDescription
+    {
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 10px;
     }
     body {
       font-family: Arial, sans-serif;
@@ -36,9 +48,13 @@
 </div>
 <!--The main game div.-->
 <div id="gameDiv" style="display: none;">
+  <div id="levelDescription"></div>
+  <div id="gameBackground">
     <canvas id="gameCanvas"
             width="768"
-            height="576"></canvas>
+            height="576">
+    </canvas>
+  </div>
 </div>
 <form id="levelSelectForm" style="display: none; margin-top: 10px;">
     <select id="levelSelect" onchange="onLevelSelectChanged(this)">

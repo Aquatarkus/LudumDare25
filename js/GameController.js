@@ -1,5 +1,6 @@
 // add levels to the level selector
 var levelSelect = document.getElementById("levelSelect");
+var levelDescription = document.getElementById("levelDescription");
 
 var fartSound = document.getElementById("fartSound");
 for (var i in Levels)
@@ -50,6 +51,9 @@ gameController.loadLevelByName = function(name)
 gameController.loadLevel = function(level, name)
 {
 	this.currentMap = new Map(name, this.stage, level.map);
+	console.log("New level is " + level.description);
+	levelDescription.innerHTML = level.description;
+	
 	// Reset everything for the new map.
 	this.stage.removeAllChildren();
 	this.currentMap.parseRows();
