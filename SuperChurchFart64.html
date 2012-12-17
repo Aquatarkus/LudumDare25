@@ -40,14 +40,15 @@
     }
 </style>
 </head>
+<body onload="init()" style="position: relative;">
 <!--Where text is played for intros/transitions, etc. -->
-<div id="titleScreen">
-  <h1>The Cropduster</h1>
-  <h2>A tactical fart assassination game</h2>
+<div id="titleScreen" style="position: relative;">
+  <h1 id="titleScreenTitle">The Cropduster</h1>
+  <h2 id="titleScreenDescription">A tactical fart assassination game</h2>
   <p>Press any key to begin</p>
 </div>
 <!--The main game div.-->
-<div id="gameDiv" style="display: none;">
+<div id="gameDiv" style="display: none; position: relative;">
   <div id="levelDescription"></div>
   <div id="gameBackground">
     <canvas id="gameCanvas"
@@ -87,8 +88,5 @@
 <script src="js/Fan.js" type="text/javascript"></script>
 <script src="js/Map.js" type="text/javascript"></script>
 <script src="js/GameController.js" type="text/javascript"></script>
-<script>
-    window.addEventListener("keydown", init, true);
-</script>
 </body>
 </html>

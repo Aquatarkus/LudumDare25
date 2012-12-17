@@ -47,11 +47,11 @@ var Baptism = {
 var Wedding = {
     map : [
 "########################",
-"#      g   TT+         #",
+"#          TT+         #",
 "#          BG         <#",
 "#>                    ^#",
 "#                      #",
-"#      G     f     F   #",
+"#            f     F   #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#^                    <#",
 "#  [PPPPPP]  [PPPPPP]  #",
