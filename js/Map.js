@@ -171,6 +171,10 @@ Map.prototype.entityForCharacter = function(character, x, y)
             // wall
             entity = new Wall(x, y);
             break;
+        case "I":
+            // invisible wall
+            entity = new InvisibleWall(x, y);
+            break;
         case " ":
             // floor
             entity = null;

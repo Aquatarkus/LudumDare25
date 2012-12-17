@@ -98,6 +98,16 @@ var BaptismFont = function(x, y, direction)
 	var bitmap = new createjs.Bitmap("images/tiles/baptism-font.png");
 	this.addChild(bitmap);
 };
+
+var InvisibleWall = function(x, y)
+{
+    Obstacle.call(this, x, y);
+    this.name = "InvisibleWall";
+    this.clearTile();
+};
+InvisibleWall.prototype = new Obstacle();
+InvisibleWall.prototype.constructor = InvisibleWall;
+
 BaptismFont.prototype = new Obstacle();
 BaptismFont.prototype.constructor = BaptismFont;
 
