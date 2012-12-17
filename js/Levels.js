@@ -51,7 +51,7 @@ var Wedding = {
 "#          BG         <#",
 "#>                    ^#",
 "#                      #",
-"#      G     f     F   #",
+"#            f     F   #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#^                    <#",
 "#  [PPPPPP]  [PPPPPP]  #",
