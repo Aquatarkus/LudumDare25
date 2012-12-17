@@ -101,13 +101,16 @@ gameController.tick = function()
 	for(var i = 0; i < this.stage.children.length; i++) {
         var currentItem = this.stage.children[i];
 		if (currentItem.tick) {
-            if (currentItem instanceof CollidableEntity) {
+            /*
+            if (currentItem instanceof CollidableEntity && currentItem.doCollisionChecks) {
                 gameController.currentMap.removeEntity(currentItem);
             }
+            */
 			currentItem.tick();
-            if (currentItem instanceof CollidableEntity) {
+            /*
+            if (currentItem instanceof CollidableEntity && currentItem.doCollisionChecks) {
                 gameController.currentMap.addEntity(currentItem);
-            }
+            }*/
 		}
 	}
 	this.stage.update();

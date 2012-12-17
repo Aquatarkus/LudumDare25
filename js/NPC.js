@@ -1,5 +1,5 @@
 var NPC = function(x, y, spriteSheet, patrolRoute) {
-    Entity.call(this, x, y);
+    CollidableEntity.call(this, x, y, Direction.Up, true);
 
     this.state = NPC.states.idle;
     this.stateStartTime = new Date();
