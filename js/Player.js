@@ -22,7 +22,10 @@ Player.prototype.moveStartPosition = { x: 0, y: 0 };
 Player.prototype.targetPosition = { x: 0, y: 0 };
 Player.prototype.moveStartTime = null;
 Player.prototype.moveTime = 300.0;
-Player.prototype.fartsRemaining = 64;
+Player.prototype.lastFart = null;
+Player.prototype.fartCount = 0;
+// min time between farts
+Player.prototype.fartCooldown = 500;
 Player.prototype.fartSpeed = 120.0;
 
 Player.prototype.isDefeated = false;
@@ -47,13 +50,17 @@ Player.prototype.resetState = function() {
 };
 
 Player.prototype.fart = function() {
-    // if no stock, return
-    if (this.fartsRemaining-- <= 0) {
+    var interval = createjs.Ticker.getInterval();
+    var ticks = interval * createjs.Ticker.getTicks();
+
+    // don't fart if we're still in a cooldown period
+    if (this.lastFart && (ticks - this.lastFart < this.fartCooldown))
         return;
-    }
 
     var fart = new Fart(this.getTileX(), this.getTileY(), Direction.Up, true);
     var fartDirection = { x: 0, y: 0 };
+    this.lastFart = ticks;
+    this.fartCount++;
 
     // fart launches opposite player facing
     switch (this.facing) {
