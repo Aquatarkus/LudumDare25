@@ -166,7 +166,7 @@ NPC.prototype.tick = function() {
 
 NPC.prototype.handleCollisions = function(entityList) {
     for (var i = 0; i < entityList.length; i++) {
-        if (entityList[i].collides && entityList[i].id !== this.id) {
+        if (entityList[i].collides && entityList[i].id !== this.id && !(entityList[i] instanceof Fart)) {
             return false;
         }
     }
