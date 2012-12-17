@@ -25,7 +25,7 @@ Player.prototype.moveTime = 300.0;
 Player.prototype.lastFart = null;
 Player.prototype.fartCount = 0;
 // min time between farts
-Player.prototype.fartCooldown = 500;
+Player.prototype.fartCooldown = 250;
 Player.prototype.fartSpeed = 120.0;
 
 Player.prototype.isDefeated = false;
@@ -87,6 +87,9 @@ Player.prototype.fart = function() {
     fart.y = this.y;
 
     addEntity(fart);
+	if (fartSound.ended ===false){
+		fartSound.currentTime = 0;
+	}
     fartSound.play();
 };
 
