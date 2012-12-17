@@ -99,8 +99,15 @@ gameController.init = function()
 gameController.tick = function()
 {
 	for(var i = 0; i < this.stage.children.length; i++) {
-		if (this.stage.children[i].tick) {
-			this.stage.children[i].tick();
+        var currentItem = this.stage.children[i];
+		if (currentItem.tick) {
+            if (currentItem instanceof CollidableEntity) {
+                gameController.currentMap.removeEntity(currentItem);
+            }
+			currentItem.tick();
+            if (currentItem instanceof CollidableEntity) {
+                gameController.currentMap.addEntity(currentItem);
+            }
 		}
 	}
 	this.stage.update();

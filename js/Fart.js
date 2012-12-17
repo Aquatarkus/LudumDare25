@@ -1,8 +1,8 @@
 // Fart.js
 
-var Fart = function(x, y, direction)
+var Fart = function(x, y, direction, doCollisionChecks)
 {
-    Entity.call(this, x, y, direction);
+    CollidableEntity.call(this, x, y, direction, doCollisionChecks);
 	
 	this.animation = new createjs.BitmapAnimation(Content.getFartSpriteSheet("fart.png"));
     this.animation.gotoAndPlay("fart");
@@ -89,7 +89,7 @@ Fart.prototype.tick = function() {
             if (ticks - this.lastSpawned > this.spawnRate) {
                 this.lastSpawned = ticks;
 
-                var newFartling = new Fart();
+                var newFartling = new Fart(prevX, prevY, Direction.Up, false);
                 newFartling.stationary = true;
                 newFartling.alpha = 0.5;
                 newFartling.x = prevX;
