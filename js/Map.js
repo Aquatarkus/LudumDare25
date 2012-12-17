@@ -331,7 +331,7 @@ Map.prototype.addNPCStart = function(npcDefinition, x, y)
             break;
         }
     }
-    if (!npc)
+    if (npc == null)
     {
         npc = {name : npcDefinition.name, startTile : {x:x, y:y}};
         npcs.push(npc);
@@ -361,7 +361,7 @@ Map.prototype.addNPCEnd = function(npcDefinition, x, y)
     }
     if (!npc)
     {
-        npc = {name : npcDefinition.name, startTile : {x:x, y:y}};
+        npc = {name : npcDefinition.name, endTile : {x:x, y:y}};
         npcs.push(npc);
     }
     else if (npc.startTile && npc.endTile)
