@@ -1,9 +1,0 @@
-[submodule "three.js"]
-	path = three.js
-	url = https://github.com/mrdoob/three.js.git
-[submodule "EaselJS"]
-	path = EaselJS
-	url = https://github.com/CreateJS/EaselJS.git
-[submodule "SoundJS"]
-	path = SoundJS
-	url = https://github.com/CreateJS/SoundJS.git
