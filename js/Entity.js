@@ -65,7 +65,17 @@ Entity.prototype.setTileX = function(tileX) {
 
 Entity.prototype.setTileY = function(tileY) {
     this.y = tileY * TileHeight;
-    };
+};
+
+var Floor = function(x, y){
+	Entity.call(this, x, y, null);
+    this.name = "Floor";
+    this.clearTile();
+    var floorBitmap = new createjs.Bitmap("images/tiles/floor-light.png");
+    this.addChild(floorBitmap);
+};
+Floor.prototype = new Entity();
+Floor.prototype.constructor = Floor;
 
 
 var Obstacle = function(x, y, direction)
@@ -84,7 +94,7 @@ var Wall = function(x, y)
     Obstacle.call(this, x, y);
     this.name = "Wall";
     this.clearTile();
-    var wallBitmap = new createjs.Bitmap("images/dark_wall.png");
+    var wallBitmap = new createjs.Bitmap("images/tiles/wall-tile.png");
     this.addChild(wallBitmap);
 };
 Wall.prototype = new Obstacle();
@@ -175,8 +185,10 @@ Door.prototype.constructor = Door;
 var Candle = function(x, y)
 {
     Obstacle.call(this, x, y);
+	this.clearTile();
     this.name = "Candle";
-    this.setColor("yellow", "red");
+	var candleBitmap = new createjs.Bitmap('images/tiles/candelabra.png');
+	this.addChild(candleBitmap);
 };
 Candle.prototype = new Entity();
 Candle.prototype.constructor = Candle;
@@ -233,16 +245,16 @@ var Singer = function(x, y)
 Singer.prototype = new Entity();
 Singer.prototype.constructor = Singer;
 
-var Table = function(x, y)
+var Altar = function(x, y)
 {
     Obstacle.call(this, x, y);
-    this.name = "Singer";
-    this.setColor("yellow", "brown");
-    var tableBitmap = new createjs.Bitmap("images/light_wall.png");
-    this.addChild(tableBitmap);
+    this.name = "Altar";
+	this.clearTile();
+    var altarBitmap = new createjs.Bitmap("images/tiles/altar.png");
+    this.addChild(altarBitmap);
 }
-Table.prototype = new Obstacle();
-Table.prototype.constructor = Table;
+Altar.prototype = new Obstacle();
+Altar.prototype.constructor = Altar;
 
 var Bride = function(x, y)
 {

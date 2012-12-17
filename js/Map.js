@@ -149,6 +149,8 @@ Map.prototype.parseRows = function()
         for (var y = 0; y < this.rowCount; y++)
         {
             this.entities[x][y] = [];
+			var background = new Floor(x, y);
+			addEntity(background);
         }
     }
 
@@ -158,8 +160,10 @@ Map.prototype.parseRows = function()
         for (var x in row)
         {
             var character = row[x];
-            var entity = this.entityForCharacter(character, x, y);
-            this.addEntity(entity);
+			if (character != " "){
+				var entity = this.entityForCharacter(character, x, y);
+				this.addEntity(entity);
+			}
         }
     }
 };
@@ -176,10 +180,6 @@ Map.prototype.entityForCharacter = function(character, x, y)
         case "I":
             // invisible wall
             entity = new InvisibleWall(x, y);
-            break;
-        case " ":
-            // floor
-            entity = null;
             break;
         case "P":
             // pew
@@ -218,8 +218,8 @@ Map.prototype.entityForCharacter = function(character, x, y)
             entity = new Singer(x, y, Direction.Down);
             break;
         case "T":
-            // Table
-            entity = new Table(x, y);
+            // Altar
+            entity = new Altar(x, y);
             break;
         case "V":
             // villain

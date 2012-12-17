@@ -18,25 +18,26 @@ var Levels =
 // g - grandpa
 // S - singer
 // + - Priest
-// I = Invisible Walls
+// I - Invisible Walls
+// c - Candle
 
 var Baptism = {
     map :[
 "########################",
-"#>          v   hHhH   #",
-"#          Qb+  hHhH  h#",
-"#                      #",
-"#   SSSSSS    SSSSSS   #",
+"#>  n       v          #",
+"#          Qb+        h#",
+"#   N      F           #",
+"#   SSSSSS  f SSSSSS   #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP] H#",
-"#                      #",
+"#n        N            #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                     <#",
 "#^ [PPPPPP]  [PPPPPP]  #",
-"#                      #",
+"#            h      H  #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
+"#  [PPPPPP]fF[PPPPPP]  #",
 "#                      #",
 "#          V           #",
 "###########{}###########",
