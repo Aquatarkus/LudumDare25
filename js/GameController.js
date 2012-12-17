@@ -18,7 +18,7 @@ var gameController =
 };
 
 gameController.loadNextLevel = function() {
-	levelSelect.selectedIndex = levelSelect.selectedIndex + 1;
+	levelSelect.selectedIndex = (levelSelect.selectedIndex + 1)%levelSelect.options.length;
 	onLevelSelectChanged(levelSelect);
 };
 

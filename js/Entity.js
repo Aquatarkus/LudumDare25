@@ -197,10 +197,13 @@ Priest.prototype.constructor = Priest;
 var Cardinal = function(x, y)
 {
     Entity.call(this, x, y);
-    this.name = "Priest";
+    this.name = "Cardinal";
+    this.isTarget = true;
     this.clearTile();
-    var bitmap = new createjs.Bitmap("images/tiles/cardinal_still.png");
-    this.addChild(bitmap);
+    var spriteSheet = Content.getSpriteSheet("/Cardinal.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idle");
+    this.addChild(animation);
 };
 Cardinal.prototype = new Entity();
 Cardinal.prototype.constructor = Cardinal;
@@ -240,3 +243,43 @@ var Table = function(x, y)
 }
 Table.prototype = new Obstacle();
 Table.prototype.constructor = Table;
+
+var Bride = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Bride";
+    this.isTarget = true;
+    this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/Bride.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idle");
+    this.addChild(animation);
+};
+Bride.prototype = new Entity();
+Bride.prototype.constructor = Bride;
+
+var Groom = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Groom";
+    this.isTarget = true;
+    this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/Groom.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idle");
+    this.addChild(animation);
+};
+Groom.prototype = new Entity();
+Groom.prototype.constructor = Groom;
+
+var Casket = function(x, y)
+{
+    Entity.call(this, x, y);
+    this.name = "Groom";
+    this.isTarget = true;
+    this.clearTile();
+    var bitmap = new createjs.Bitmap("images/tiles/casket.png");
+    this.addChild(bitmap);
+};
+Casket.prototype = new Entity();
+Casket.prototype.constructor = Casket;

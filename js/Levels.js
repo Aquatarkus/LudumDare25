@@ -17,7 +17,7 @@ var Baptism = {
     map :[
 "########################",
 "#>          v   hHhH   #",
-"#          Qb+G hHhH  h#",
+"#          Qb+  hHhH  h#",
 "#                      #",
 "#   SSSSSS    SSSSSS   #",
 "#                      #",
@@ -40,11 +40,11 @@ var Baptism = {
 var Wedding = {
     map : [
 "########################",
-"#      g   TT+        <#",
-"#                      #",
+"#      n   TT+         #",
+"#          BG         <#",
 "#>                    ^#",
 "#                      #",
-"#      G     f     F   #",
+"#      N     f     F   #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#^                    <#",
 "#  [PPPPPP]  [PPPPPP]  #",
@@ -64,8 +64,8 @@ var Wedding = {
 var Funeral = {
     map : [
 "########################",
-"#          +           #",
-"#                      #",
+"#          TT          #",
+"#          |+          #",
 "#                      #",
 "#  [PPPPPPP  PPPPPPP]  #",
 "#                      #",
@@ -90,7 +90,7 @@ var PapalConclave = {
 "########################",
 "#c       c TT c       c#",
 "#          TT          #",
-"#          +           #",
+"#          C           #",
 "#                      #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",

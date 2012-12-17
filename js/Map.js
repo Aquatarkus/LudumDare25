@@ -228,6 +228,9 @@ Map.prototype.entityForCharacter = function(character, x, y)
             player.setTileX(x);
             player.setTileY(y);
             break;
+        case "G":
+            entity = new Groom(x, y, Direction.Down);
+            break;
         case "J":
             entity = new Jesus(x, y, Direction.Down);
             break;
@@ -249,6 +252,12 @@ Map.prototype.entityForCharacter = function(character, x, y)
 		case "b":
 			entity = new Baby(x, y, Direction.Down);
 			break;
+        case "B":
+            entity = new Bride(x, y, Direction.Down);
+            break;
+        case "|":
+            entity = new Casket(x, y, Direction.down);
+            break;
         default:
             // try an NPC patroller
             var isNPC = this.addNPCWithCharacter(character, x, y);

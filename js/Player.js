@@ -286,4 +286,4 @@ Player.prototype.handleCollisions = function(entityList) {
     return result;
 };
 
-var player = new Player(0, 0, Content.getSpriteSheet("M_Elvis.png"));
+var player = new Player(0, 0, Content.getSpriteSheet("L_James.png"));

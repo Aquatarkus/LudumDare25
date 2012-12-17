@@ -14,8 +14,8 @@ NPCDefinitions = {
         spriteSheet : Content.getSpriteSheet("M_Short_Grandpa.png"),
         moveTime : 1000.0,
         pauseTime : 500.0,
-        startCharacter : "g",
-        endCharacter : "G"
+        startCharacter : "n",
+        endCharacter : "N"
     },
     FlowerGirl :
     {
