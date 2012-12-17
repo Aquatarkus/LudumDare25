@@ -143,8 +143,10 @@ var Priest = function(x, y)
     this.name = "Priest";
 	this.isTarget = true;
     this.clearTile();
-    var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
-    this.addChild(bitmap);
+    var spriteSheet = Content.getSpriteSheet("Priest.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idle");
+    this.addChild(animation);
 };
 Priest.prototype = new Entity();
 Priest.prototype.constructor = Priest;

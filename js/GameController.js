@@ -122,7 +122,7 @@ gameController.tick = function()
 
 function init()
 {
-	console.log("Fired init");
+	console.log("Initializing GameController");
     window.removeEventListener("keydown", init, true);
 	gameController.init();
 
