@@ -157,7 +157,16 @@ var Door = function(x, y, direction)
 {
     Entity.call(this, x, y, direction);
     this.name = "Door";
-    this.setColor("#E2CACA", "#A67B5B");
+	this.clearTile();
+	var imgURL;
+	if (direction == Direction.Right){
+		imgURL = "images/tiles/Door-Right.png";
+	}
+	else{
+		imgURL = "images/tiles/Door-Left.png";
+	}
+    var bitmap = new createjs.Bitmap(imgURL);
+	this.addChild(bitmap);
 	this.isSafeZone = true;
 };
 Door.prototype = new Entity();
