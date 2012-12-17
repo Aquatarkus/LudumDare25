@@ -14,7 +14,9 @@ var gameController =
 	stage: null,
 	currentMap: null,
 	objectsToDelete: [],
-	currentLevelIndex: 0
+	currentLevelIndex: 0,
+    inTitleScreen: false,
+    isGameLoaded: false
 };
 
 gameController.loadNextLevel = function() {
@@ -60,7 +62,66 @@ gameController.loadLevel = function(level, name)
 	this.objectsToDelete = [];
 
 	// Reset player fart count
+    player.ready = false;
 	player.fartsRemaining = 10;
+    
+    if (this.isGameLoaded) {
+        gameController.showTitleScreen(level, name);
+    }
+};
+
+gameController.gameMenuAction = function() {
+    var result = true;
+    
+    if ((player.isDefeated) || (player.isVictorious) || (this.inTitleScreen) || (!this.isGameLoaded)) {
+        if (!this.isGameLoaded) {
+            console.log("INIT LOAD");
+            this.isGameLoaded = true;
+            gameController.reloadLevel();
+        } else if (this.inTitleScreen) {
+            console.log("HIDE TITLE");
+            gameController.hideTitleScreen();
+        } else {
+            if (player.isDefeated) {
+                console.log("RELOAD LEVEL");
+                gameController.reloadLevel();
+            } else if (player.isVictorious) {
+                console.log("LOAD NEXT LEVEL");
+                gameController.loadNextLevel();
+            }
+        }   
+    } else {
+        result = false;
+    }
+    
+    return result;
+};
+
+gameController.showTitleScreen = function(map, name) {
+    this.inTitleScreen = true;
+    this.stage.clear();
+    this.stage.canvas = null;
+    document.getElementById('titleScreenTitle').innerHTML = name;
+    document.getElementById('titleScreenDescription').innerHTML = map.description;
+    //Hide title screen, show game, and start audio.
+	document.getElementById('titleScreen').style.display = 'block';
+    document.getElementById('gameCanvas').style.display = 'none';
+    document.getElementById('gameDiv').style.display = 'none';
+	document.getElementById('levelSelectForm').style.display = 'none';
+	document.getElementById('soundDiv').style.display = 'none';
+    document.getElementById('musicSound').paused = true;
+};
+
+gameController.hideTitleScreen = function() {
+    this.inTitleScreen = false;
+    this.stage.canvas = this.canvas;
+    //Hide title screen, show game, and start audio.
+	document.getElementById('titleScreen').style.display = 'none';
+    document.getElementById('gameCanvas').style.display = 'block';
+	document.getElementById('gameDiv').style.display = 'block';
+	document.getElementById('levelSelectForm').style.display = 'block';
+	document.getElementById('soundDiv').style.display = 'block';
+	document.getElementById('musicSound').play();
 };
 
 function getDistanceEntities() {
@@ -96,9 +157,12 @@ gameController.init = function()
 {
 	this.canvas = document.getElementById("gameCanvas");
 	this.stage = new createjs.Stage(this.canvas);
-
-	this.loadLevelByIndex(0);
+    player.isDefeated = true;
+    levelSelect.selectedIndex = 0;
+    this.reloadLevel();
 };
+
+
 
 gameController.tick = function()
 {
@@ -127,15 +191,7 @@ gameController.tick = function()
 function init()
 {
 	console.log("Initializing GameController");
-    window.removeEventListener("keydown", init, true);
 	gameController.init();
-
-	//Hide title screen, show game, and start audio.
-	document.getElementById('titleScreen').style.display = 'none';
-	document.getElementById('gameDiv').style.display = 'block';
-	document.getElementById('levelSelectForm').style.display = 'block';
-	document.getElementById('soundDiv').style.display = 'block';
-	document.getElementById('musicSound').play();
 
 	// start game timer
 	createjs.Ticker.addListener(gameController);
