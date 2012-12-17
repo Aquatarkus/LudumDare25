@@ -99,29 +99,29 @@ gameController.gameMenuAction = function() {
 
 gameController.showTitleScreen = function(map, name) {
     this.inTitleScreen = true;
-    this.stage.clear();
-    this.stage.canvas = null;
-    document.getElementById('titleScreenTitle').innerHTML = name;
-    document.getElementById('titleScreenDescription').innerHTML = map.description;
+    
+    $("#titleScreenTitle").html(name);
+    $("#titleScreenDescription").html(map.description);
+    
     //Hide title screen, show game, and start audio.
-	document.getElementById('titleScreen').style.display = 'block';
-    document.getElementById('gameCanvas').style.display = 'none';
-    document.getElementById('gameDiv').style.display = 'none';
-	document.getElementById('levelSelectForm').style.display = 'none';
-	document.getElementById('soundDiv').style.display = 'none';
-    document.getElementById('musicSound').paused = true;
+	$("#titleScreen").show();
+    $("#gameCanvas").hide();
+    $("#gameDiv").hide();
+	$("#levelSelectForm").hide();
+	$("#soundDiv").hide();
+    $("#musicSound")[0].paused = true;
 };
 
 gameController.hideTitleScreen = function() {
     this.inTitleScreen = false;
-    this.stage.canvas = this.canvas;
+    
     //Hide title screen, show game, and start audio.
-	document.getElementById('titleScreen').style.display = 'none';
-    document.getElementById('gameCanvas').style.display = 'block';
-	document.getElementById('gameDiv').style.display = 'block';
-	document.getElementById('levelSelectForm').style.display = 'block';
-	document.getElementById('soundDiv').style.display = 'block';
-	document.getElementById('musicSound').play();
+	$("#titleScreen").hide();
+    $("#gameCanvas").show();
+	$("#gameDiv").show();
+	$("#levelSelectForm").show();
+	$("#soundDiv").show();
+	$("#musicSound")[0].play();
 };
 
 function getDistanceEntities() {
