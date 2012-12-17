@@ -42,6 +42,7 @@ NPC.prototype.walkAnimName = null;
 NPC.prototype.targetPosition = null;
 NPC.prototype.lastStepPosition = null;
 NPC.prototype.nextStepPosition = null;
+NPC.prototype.movedLastFrame = false;
 
 NPC.prototype.tick = function() {
     // non-moving NPCs need no updates
@@ -63,7 +64,7 @@ NPC.prototype.tick = function() {
             this.nextStepPosition = {
                 x: this.x,
                 y: this.y + (this.y < this.targetPosition.y ? 1 : -1) * TileHeight
-            }
+            };
             this.walkAnimName = this.y < this.targetPosition.y
                 ? "walkSouth"
                 : "walkNorth";
@@ -83,7 +84,7 @@ NPC.prototype.tick = function() {
             this.nextStepPosition = {
                 x: this.x + (this.x < this.targetPosition.x ? 1 : -1) * TileWidth,
                 y: this.y
-            }
+            };
             this.walkAnimName = this.x < this.targetPosition.x
                 ? "walkEast"
                 : "walkWest";
@@ -101,9 +102,16 @@ NPC.prototype.tick = function() {
     }
 
     if (this.state === NPC.states.moving) {
+        // if patrol is blocked, switch to idle and stand still, play walk anim when obstruction is cleared
         if (!this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
+            this.movedLastFrame = false;
+            this.stateStartTime = new Date();
             this.animation.gotoAndPlay(this.idleAnimName);
             return;
+        } else {
+            if (!this.movedLastFrame)
+                this.animation.gotoAndPlay(this.walkAnimName);
+            this.movedLastFrame = true;
         }
 
         // make the move to the next tile
@@ -148,7 +156,7 @@ NPC.prototype.tick = function() {
 
 NPC.prototype.handleCollisions = function(entityList) {
     for (var i = 0; i < entityList.length; i++) {
-        if (entityList[i].collides && !(entityList[i].id == this.id)) {
+        if (entityList[i].collides && entityList[i].id !== this.id) {
             return false;
         }
     }
