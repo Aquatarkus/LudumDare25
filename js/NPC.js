@@ -99,7 +99,6 @@ NPC.prototype.tick = function() {
         this.wasMoving = false;
         this.state = NPC.states.moving;
         this.stateStartTime = new Date();
-        this.animation.gotoAndPlay(this.walkAnimName);
     }
 
     if (this.state === NPC.states.moving) {
@@ -111,6 +110,7 @@ NPC.prototype.tick = function() {
                 this.animation.gotoAndPlay(this.walkAnimName);
                 this.wasMoving = true;
             } else {
+                this.animation.gotoAndPlay(this.idleAnimName);
                 return;
             }
         }
