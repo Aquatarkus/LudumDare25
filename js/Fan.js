@@ -5,7 +5,7 @@ var Fan = function(x, y, direction)
     Entity.call(this, x, y, direction);
     this.caresAboutDistance = true;
 	
-	this.animation = new createjs.BitmapAnimation(Content.getFanSpriteSheet("fanblades.png"));
+	this.animation = new createjs.BitmapAnimation(Content.getFanSpriteSheet("fan-sprite-tiles.png"));
 	this.animation.gotoAndPlay(direction);
     
     this.addChild(this.animation);

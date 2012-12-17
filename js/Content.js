@@ -70,12 +70,12 @@ Content.getFanSpriteSheet = function(filename) {
     var sprite = new createjs.SpriteSheet({
         images: [ "images/" + filename ],
         // weird regX and regY values to accomodate setTileX/Y system
-        frames: { width: 32, height: 32, count: 12, regX: 0, regY: 0 },
+        frames: { width: 32, height: 32, count: 24, regX: 0, regY: 0 },
         animations: {
-			left: { frames: [ 3, 4, 5 ], frequency: 5 },
-			right: { frames: [ 6, 7, 8 ], frequency: 5 },
-			up: { frames: [ 0, 1, 2 ], frequency: 5 },
-			down: { frames: [ 9, 10, 11 ], frequency: 5 }
+			left: { frames: [ 18, 19, 20, 21, 22, 23], frequency: 5 },
+			right: { frames: [ 6, 7, 8, 9, 10, 11 ], frequency: 5 },
+			up: { frames: [ 0, 1, 2, 3, 4, 5 ], frequency: 5 },
+			down: { frames: [ 12, 13, 14, 15, 16, 17], frequency: 5 }
         }
     });
 
