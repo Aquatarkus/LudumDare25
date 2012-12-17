@@ -90,6 +90,31 @@ var Wall = function(x, y)
 Wall.prototype = new Obstacle();
 Wall.prototype.constructor = Wall;
 
+var BaptismFont = function(x, y, direction)
+{
+	Obstacle.call(this, x, y, direction);
+	this.name = "Baptism Font";
+	this.clearTile();
+	var bitmap = new createjs.Bitmap("images/tiles/baptism-font.png");
+	this.addChild(bitmap);
+};
+BaptismFont.prototype = new Obstacle();
+BaptismFont.prototype.constructor = BaptismFont;
+
+var Baby = function(x, y, direction)
+{
+    Entity.call(this, x, y);
+    this.name = "Baby";
+	this.isTarget = true;
+    this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/Baby.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idleWest");
+    this.addChild(animation);
+};
+Baby.prototype = new Obstacle();
+Baby.prototype.constructor = Baby;
+
 var Pew = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
@@ -141,9 +166,8 @@ var Priest = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Priest";
-	this.isTarget = true;
     this.clearTile();
-    var spriteSheet = Content.getSpriteSheet("Priest.png");
+    var spriteSheet = Content.getSpriteSheet("/Priest.png");
     var animation = new createjs.BitmapAnimation(spriteSheet);
     animation.gotoAndPlay("idle");
     this.addChild(animation);
@@ -178,7 +202,11 @@ var Singer = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Singer";
-    this.setColor("blue", "white");
+	this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/SH_wDress.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("walkNorth");
+    this.addChild(animation);
 }
 Singer.prototype = new Entity();
 Singer.prototype.constructor = Singer;

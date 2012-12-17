@@ -237,6 +237,12 @@ Map.prototype.entityForCharacter = function(character, x, y)
         case "v":
             entity = new Fan(x, y, Direction.Down);
             break;
+		case "Q":
+			entity = new BaptismFont(x, y, Direction.Down);
+			break;
+		case "b":
+			entity = new Baby(x, y, Direction.Down);
+			break;
         default:
             console.log("Unknown map character: "+character);
             break;

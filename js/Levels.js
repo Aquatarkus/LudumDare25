@@ -11,29 +11,30 @@
 // G - groom
 // g - grandpa
 // S - singer
+// + - Priest
 
 var Baptism = {
     map :[
 "########################",
-"#>        + v          #",
-"#        B  b G        #",
+"#>          v          #",
+"#        B Qb+G        #",
 "#                      #",
 "#   SSSSSS    SSSSSS   #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
+"#                     <#",
+"#^ [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
 "#  [PPPPPP]  [PPPPPP]  #",
 "#                      #",
-"#  [PPPPPP]  [PPPPPP]  #",
-"#                      #",
-"#^         V>          #",
+"#          V           #",
 "###########{}###########"],
 
-    description : "Fart on the baby before the sin is washed away!"
+    description : "The Prime Minister's baby is the target.  Execute CODE BROWN and escape before anyone realizes it was you!"
 };
 
 var Wedding = {
