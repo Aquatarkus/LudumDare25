@@ -102,16 +102,13 @@ var PewEnd = function(x, y, direction)
     Obstacle.call(this, x, y, direction);
     this.name = "PewEnd";
     this.clearTile();
-    var imageURL;
-    if (direction == Direction.Left)
-    {
-        imageURL = "images/tiles/pew-end-left.png";
-    }
-    else
-    {
-        imageURL = "images/tiles/pew-end-right.png";
-    }
+    var imageURL = "images/tiles/pew-end.png";
     var bitmap = new createjs.Bitmap(imageURL);
+    if (direction == Direction.Right)
+    {
+		bitmap.regX = 32;
+		bitmap.scaleX = -1;
+    }
     this.addChild(bitmap);
 };
 PewEnd.prototype = new Obstacle();
