@@ -138,6 +138,4 @@ var Levels =
     Baptism: Baptism,
     Wedding : Wedding,
     Funeral : Funeral,
-    PapalConclave: PapalConclave,
-    FartOnJesus : FartOnJesus
-};
+    PapalConclave: PapalConclave};
