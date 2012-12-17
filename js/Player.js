@@ -1,5 +1,5 @@
 var Player = function(x, y, spriteSheet) {
-    Entity.call(this, x, y)
+    CollidableEntity.call(this, x, y, Direction.Up, true);
 
     this.animation = new createjs.BitmapAnimation(spriteSheet);
     this.animation.gotoAndPlay("idle");
@@ -49,7 +49,7 @@ Player.prototype.fart = function() {
         return;
     }
 
-    var fart = new Fart(this.getTileX(), this.getTileY());
+    var fart = new Fart(this.getTileX(), this.getTileY(), Direction.Up, true);
     var fartDirection = { x: 0, y: 0 };
 
     // fart launches opposite player facing

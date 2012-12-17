@@ -4,6 +4,11 @@ var Fan = function(x, y, direction)
 {
     Entity.call(this, x, y, direction);
     this.caresAboutDistance = true;
+	
+	this.animation = new createjs.BitmapAnimation(Content.getFanSpriteSheet("fanblades.png"));
+	this.animation.gotoAndPlay(direction);
+    
+    this.addChild(this.animation);
 };
 Fan.prototype = new Entity();
 Fan.prototype.constructor = Fan;
@@ -11,27 +16,7 @@ Fan.prototype.constructor = Fan;
 Fan.prototype.force = 120;
 
 Fan.prototype.makeShape = function() {
-    var g = this.shape.graphics;
-
-    g.clear();
-    g.beginFill("#FFF");
-
-    switch(this.direction) {
-        case Direction.Left:
-            g.drawRect(16, 0, 16, 32);
-            break;
-        case Direction.Right:
-            g.drawRect(0, 0, 16, 32);
-            break;
-        case Direction.Up:
-            g.drawRect(0, 16, 32, 16);
-            break;
-        case Direction.Down:
-            g.drawRect(0, 0, 32, 16);
-            break;
-    }
-
-    g.endFill();
+    
 };
 
 Fan.prototype.affect = function(entity) {

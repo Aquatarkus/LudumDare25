@@ -1,7 +1,8 @@
 
-var CollidableEntity = function(x, y, direction)
+var CollidableEntity = function(x, y, direction, doCollisionChecks)
 {
     Entity.call(this, x, y, direction);
+    this.doCollisionChecks = doCollisionChecks;
 };
 CollidableEntity.prototype = new Entity();
 CollidableEntity.prototype.constructor = CollidableEntity;

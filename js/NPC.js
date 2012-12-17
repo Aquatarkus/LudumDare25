@@ -1,5 +1,5 @@
 var NPC = function(x, y, spriteSheet, patrolRoute) {
-    Entity.call(this, x, y);
+    CollidableEntity.call(this, x, y, Direction.Up, true);
 
     this.state = NPC.states.idle;
     this.stateStartTime = new Date();
@@ -42,7 +42,7 @@ NPC.prototype.walkAnimName = null;
 NPC.prototype.targetPosition = null;
 NPC.prototype.lastStepPosition = null;
 NPC.prototype.nextStepPosition = null;
-NPC.prototype.movedLastFrame = false;
+NPC.prototype.wasMoving = false;
 
 NPC.prototype.tick = function() {
     // non-moving NPCs need no updates
@@ -96,25 +96,25 @@ NPC.prototype.tick = function() {
                 : Direction.Left;
         }
 
+        this.wasMoving = false;
         this.state = NPC.states.moving;
         this.stateStartTime = new Date();
         this.animation.gotoAndPlay(this.walkAnimName);
     }
 
     if (this.state === NPC.states.moving) {
-        // if patrol is blocked, switch to idle and stand still, play walk anim when obstruction is cleared
-        if (!this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
-            this.movedLastFrame = false;
-            this.stateStartTime = new Date();
-            this.animation.gotoAndPlay(this.idleAnimName);
-            return;
-        } else {
-            if (!this.movedLastFrame)
+        // if we were idle, keep checking for obstruction to clear
+        if (!this.wasMoving) {
+            if (this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
+                // obstruction is now clear; start walking again
+                this.stateStartTime = new Date();
                 this.animation.gotoAndPlay(this.walkAnimName);
-            this.movedLastFrame = true;
+                this.wasMoving = true;
+            } else {
+                return;
+            }
         }
 
-        // make the move to the next tile
         var moveScale = (new Date() - this.stateStartTime) / this.patrolRoute.moveTime;
         if (moveScale < 1.0) {
             // target not yet reached; move normally
@@ -150,6 +150,13 @@ NPC.prototype.tick = function() {
             }
 
             this.lastStepPosition = { x: this.x, y: this.y };
+
+            // if patrol is blocked, switch to idle and stand still, play walk anim when obstruction is cleared
+            if (!this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
+                this.wasMoving = false;
+                this.stateStartTime = new Date();
+                this.animation.gotoAndPlay(this.idleAnimName);
+            }
         }
     }
 };
