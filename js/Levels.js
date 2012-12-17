@@ -17,7 +17,7 @@ var Baptism = {
     map :[
 "########################",
 "#>          v   hHhH   #",
-"#        B Qb+G hHhH  h#",
+"#          Qb+G hHhH  h#",
 "#                      #",
 "#   SSSSSS    SSSSSS   #",
 "#                      #",

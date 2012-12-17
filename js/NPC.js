@@ -5,6 +5,9 @@ var NPC = function(x, y, spriteSheet, patrolRoute) {
     this.stateStartTime = new Date();
     this.facing = Direction.Down;
 
+    this.nextStepPosition = { x: this.x, y: this.y };
+    this.lastStepPosition = { x: this.x, y: this.y };
+
     this.animation = new createjs.BitmapAnimation(spriteSheet);
     this.animation.gotoAndPlay("idle");
 
@@ -30,8 +33,9 @@ NPC.prototype.patrolRoute = {
     startY: 0,
     endX: 0,
     endY: 0,
-    // pause at each endpoint
+    // pause at each patrol endpoint
     pauseTime: 1000.0,
+    // milliseconds per cell traversal
     moveTime: 300.0
 };
 NPC.prototype.state = null;
@@ -44,6 +48,13 @@ NPC.prototype.lastStepPosition = null;
 NPC.prototype.nextStepPosition = null;
 NPC.prototype.wasMoving = false;
 
+NPC.prototype.getTileX = function() {
+    return this.nextStepPosition.x / TileWidth;
+}
+NPC.prototype.getTileY = function() {
+    return this.nextStepPosition.y / TileHeight;
+}
+
 NPC.prototype.tick = function() {
     // non-moving NPCs need no updates
     if (!this.patrolRoute)
@@ -51,20 +62,15 @@ NPC.prototype.tick = function() {
 
     // if idle timer is over, start animation and set movement targets
     if (this.state === NPC.states.idle && (new Date() - this.stateStartTime) > this.patrolRoute.pauseTime) {
-        this.lastStepPosition = { x: this.x, y: this.y };
 
         // determine move direction for animation
-        if (this.patrolRoute.startX == this.patrolRoute.endX) {
+        if (this.patrolRoute.startX === this.patrolRoute.endX) {
             // vertical movement
             this.targetPosition = {
                 x: this.x, 
                 y: (this.y === this.patrolRoute.startY
                     ? this.patrolRoute.endY
                     : this.patrolRoute.startY ) };
-            this.nextStepPosition = {
-                x: this.x,
-                y: this.y + (this.y < this.targetPosition.y ? 1 : -1) * TileHeight
-            };
             this.walkAnimName = this.y < this.targetPosition.y
                 ? "walkSouth"
                 : "walkNorth";
@@ -81,10 +87,6 @@ NPC.prototype.tick = function() {
                     ? this.patrolRoute.endX
                     : this.patrolRoute.startX ),
                 y: this.y };
-            this.nextStepPosition = {
-                x: this.x + (this.x < this.targetPosition.x ? 1 : -1) * TileWidth,
-                y: this.y
-            };
             this.walkAnimName = this.x < this.targetPosition.x
                 ? "walkEast"
                 : "walkWest";
@@ -102,61 +104,62 @@ NPC.prototype.tick = function() {
     }
 
     if (this.state === NPC.states.moving) {
-        // if we were idle, keep checking for obstruction to clear
-        if (!this.wasMoving) {
-            if (this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
-                // obstruction is now clear; start walking again
-                this.stateStartTime = new Date();
-                this.animation.gotoAndPlay(this.walkAnimName);
-                this.wasMoving = true;
-            } else {
-                this.animation.gotoAndPlay(this.idleAnimName);
+        if (this.wasMoving) {
+            var moveScale = (new Date() - this.stateStartTime) / this.patrolRoute.moveTime;
+            if (moveScale < 1.0) {
+                // in motion between tiles
+                this.x = lerp(this.lastStepPosition.x, this.nextStepPosition.x, moveScale);
+                this.y = lerp(this.lastStepPosition.y, this.nextStepPosition.y, moveScale);
                 return;
+            } else {
+                // cell destination reaached, correct for possible timing errors
+                this.x = this.nextStepPosition.x;
+                this.y = this.nextStepPosition.y;
+
+                // if at a patrol endpoint, we're done here
+                if (this.x === this.targetPosition.x && this.y === this.targetPosition.y) {
+                    this.animation.gotoAndPlay(this.idleAnimName);
+                    this.state = NPC.states.idle;
+                    this.stateStartTime = new Date();
+                    return;
+                }
             }
         }
 
-        var moveScale = (new Date() - this.stateStartTime) / this.patrolRoute.moveTime;
-        if (moveScale < 1.0) {
-            // target not yet reached; move normally
-            this.x = lerp(this.lastStepPosition.x, this.nextStepPosition.x, moveScale);
-            this.y = lerp(this.lastStepPosition.y, this.nextStepPosition.y, moveScale);
-        } else {
-            // target reached, set next target
-            this.x = this.nextStepPosition.x;
-            this.y = this.nextStepPosition.y;
+        // ready to move to next cell if it's open
+        var desiredNextStep = { x: this.x, y: this.y };
+        switch (this.facing) {
+            case Direction.Up:
+                desiredNextStep.y -= TileHeight;
+                break;
+            case Direction.Left:
+                desiredNextStep.x -= TileWidth;
+                break;
+            case Direction.Down:
+                desiredNextStep.y += TileHeight;
+                break;
+            case Direction.Right:
+                desiredNextStep.x += TileWidth;
+                break;
+        }
 
+        if (this.checkCollision(desiredNextStep.x / TileWidth, desiredNextStep.y / TileHeight)) {
+            // no obstruction; start walking
             this.stateStartTime = new Date();
+            this.lastStepPosition.x = this.x;
+            this.lastStepPosition.y = this.y;
+            this.nextStepPosition.x = desiredNextStep.x;
+            this.nextStepPosition.y = desiredNextStep.y;
 
-            if (this.x === this.targetPosition.x &&
-                this.y === this.targetPosition.y) {
-                // target reached; switch to idle
-                this.animation.gotoAndPlay(this.idleAnimName);
-                this.state = NPC.states.idle;
-            } else {
-                switch (this.facing) {
-                    case Direction.Up:
-                        this.nextStepPosition.y -= TileHeight;
-                        break;
-                    case Direction.Left:
-                        this.nextStepPosition.x -= TileWidth;
-                        break;
-                    case Direction.Down:
-                        this.nextStepPosition.y += TileHeight;
-                        break;
-                    case Direction.Right:
-                        this.nextStepPosition.x += TileWidth;
-                        break;
-                }
-            }
+            // if we weren't already moving, play walk cycle
+            if (!this.wasMoving)
+                this.animation.gotoAndPlay(this.walkAnimName);
 
-            this.lastStepPosition = { x: this.x, y: this.y };
-
-            // if patrol is blocked, switch to idle and stand still, play walk anim when obstruction is cleared
-            if (!this.checkCollision(this.nextStepPosition.x / TileWidth, this.nextStepPosition.y / TileHeight)) {
-                this.wasMoving = false;
-                this.stateStartTime = new Date();
-                this.animation.gotoAndPlay(this.idleAnimName);
-            }
+            this.wasMoving = true;
+        } else {
+            // collision problem; stay in place until obstruction is clear
+            this.wasMoving = false;
+            this.animation.gotoAndPlay(this.idleAnimName);
         }
     }
 };
