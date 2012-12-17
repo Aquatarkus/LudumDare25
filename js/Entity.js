@@ -90,6 +90,41 @@ var Wall = function(x, y)
 Wall.prototype = new Obstacle();
 Wall.prototype.constructor = Wall;
 
+var BaptismFont = function(x, y, direction)
+{
+	Obstacle.call(this, x, y, direction);
+	this.name = "Baptism Font";
+	this.clearTile();
+	var bitmap = new createjs.Bitmap("images/tiles/baptism-font.png");
+	this.addChild(bitmap);
+};
+
+var InvisibleWall = function(x, y)
+{
+    Obstacle.call(this, x, y);
+    this.name = "InvisibleWall";
+    this.clearTile();
+};
+InvisibleWall.prototype = new Obstacle();
+InvisibleWall.prototype.constructor = InvisibleWall;
+
+BaptismFont.prototype = new Obstacle();
+BaptismFont.prototype.constructor = BaptismFont;
+
+var Baby = function(x, y, direction)
+{
+    Entity.call(this, x, y);
+    this.name = "Baby";
+	this.isTarget = true;
+    this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/Baby.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idleWest");
+    this.addChild(animation);
+};
+Baby.prototype = new Obstacle();
+Baby.prototype.constructor = Baby;
+
 var Pew = function(x, y, direction)
 {
     Obstacle.call(this, x, y, direction);
@@ -141,10 +176,11 @@ var Priest = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Priest";
-	this.isTarget = true;
     this.clearTile();
-    var bitmap = new createjs.Bitmap("images/tiles/priest_still.png");
-    this.addChild(bitmap);
+    var spriteSheet = Content.getSpriteSheet("/Priest.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("idle");
+    this.addChild(animation);
 };
 Priest.prototype = new Entity();
 Priest.prototype.constructor = Priest;
@@ -176,7 +212,11 @@ var Singer = function(x, y)
 {
     Entity.call(this, x, y);
     this.name = "Singer";
-    this.setColor("blue", "white");
+	this.clearTile();
+    var spriteSheet = Content.getSpriteSheet("/SH_wDress.png");
+    var animation = new createjs.BitmapAnimation(spriteSheet);
+    animation.gotoAndPlay("walkNorth");
+    this.addChild(animation);
 }
 Singer.prototype = new Entity();
 Singer.prototype.constructor = Singer;
