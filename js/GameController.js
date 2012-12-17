@@ -78,7 +78,7 @@ function removeEntity(newEntity)
 
 function removeEntityFromMap(newEntity)
 {
-	gameController.currentMap.removeEntity(newEntity);
+	gameController.currentMap.removeEntityTilePosition(newEntity);
 };
 
 function onLevelSelectChanged(select)
@@ -101,23 +101,20 @@ gameController.tick = function()
 	for(var i = 0; i < this.stage.children.length; i++) {
         var currentItem = this.stage.children[i];
 		if (currentItem.tick) {
-            /*
-            if (currentItem instanceof CollidableEntity && currentItem.doCollisionChecks) {
-                gameController.currentMap.removeEntity(currentItem);
+            if (currentItem.doCollisionChecks) {
+                gameController.currentMap.removeEntityTilePosition(currentItem);
             }
-            */
 			currentItem.tick();
-            /*
-            if (currentItem instanceof CollidableEntity && currentItem.doCollisionChecks) {
-                gameController.currentMap.addEntity(currentItem);
-            }*/
+            if (currentItem.doCollisionChecks) {
+                gameController.currentMap.setEntityTilePosition(currentItem);
+            }
 		}
 	}
 	this.stage.update();
 
 	for(var i = this.objectsToDelete.length - 1; i >= 0; i--) {
 		this.stage.removeChild(this.objectsToDelete[i]);
-		this.currentMap.removeEntity(this.objectsToDelete[i]);
+		this.currentMap.removeEntityTilePosition(this.objectsToDelete[i]);
 	}
 
 	this.objectsToDelete = [];

@@ -1,8 +1,12 @@
 // Entity.js
 
+var entityId = 0;
+
 var Entity = function(x, y, direction)
 {
     this.initialize(x, y, direction);
+    entityId++;
+    this.entityId = entityId;
 }
 Entity.prototype = new createjs.Container();
 Entity.prototype.Container_initialize = Entity.prototype.initialize;
@@ -47,12 +51,12 @@ Entity.prototype.clearTile = function()
 
 Entity.prototype.getTileX = function()
 {
-    return this.x / TileWidth;
+    return Math.round(this.x / TileWidth);
 };
 
 Entity.prototype.getTileY = function()
 {
-    return this.y / TileHeight;
+    return Math.round(this.y / TileHeight);
 };
 
 Entity.prototype.setTileX = function(tileX) {
